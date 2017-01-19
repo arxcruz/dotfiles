@@ -17,7 +17,7 @@ autocmd! bufwritepost .vimrc source %
 " paste. At the bottom you should see ``-- INSERT (paste) --``.
 
 set pastetoggle=<F2>
-set clipboard=unnamed
+set clipboard=unnamedplus
 
 
 " Mouse and backspace
@@ -171,7 +171,7 @@ let g:jedi#usages_command = "<leader>z"
 let g:jedi#popup_on_dot = 0
 let g:jedi#popup_select_first = 0
 map <Leader>b Oimport pudb; pudb.set_trace() # BREAKPOINT<C-c>
-
+map <C-g> g:jedi#goto_command
 " Better navigating through omnicomplete option list
 " See 
 " http://stackoverflow.com/questions/2170023/how-to-map-keys-for-popup-menu-in-vim
