@@ -200,3 +200,19 @@ set nofoldenable
 " Close quickfix window
 noremap <Leader>w :ccl<CR>
 
+" NERDTree
+map <Leader>p :NERDTreeToggle<CR>
+
+
+" NERDTree git plugin
+let g:NERDTreeIndicatorMapCustom = {
+    \ "Modified"  : "✹",
+    \ "Staged"    : "✚",
+    \ "Untracked" : "✭",
+    \ "Renamed"   : "➜",
+    \ "Unmerged"  : "═",
+    \ "Deleted"   : "✖",
+    \ "Dirty"     : "✗",
+    \ "Clean"     : "✔︎",
+    \ "Unknown"   : "?"
+    \ }
