@@ -138,7 +138,7 @@ set noswapfile
 
 " Setup Pathogen to manage your plugins
 " mkdir -p ~/.vim/autoload ~/.vim/bundle
-" curl -so ~/.vim/autoload/pathogen.vim 
+" curl -so ~/.vim/autoload/pathogen.vim
 " https://raw.githubusercontent.com/tpope/vim-pathogen/master/autoload/pathogen.vim
 " Now you can install any plugin into a .vim/bundle/plugin-name/ folder
 call pathogen#infect()
@@ -173,7 +173,7 @@ let g:jedi#popup_select_first = 0
 map <Leader>b Oimport pudb; pudb.set_trace() # BREAKPOINT<C-c>
 map <C-g> g:jedi#goto_command
 " Better navigating through omnicomplete option list
-" See 
+" See
 " http://stackoverflow.com/questions/2170023/how-to-map-keys-for-popup-menu-in-vim
 set completeopt=longest,menuone
 function! OmniPopup(action)
@@ -215,4 +215,39 @@ let g:NERDTreeIndicatorMapCustom = {
     \ "Dirty"     : "✗",
     \ "Clean"     : "✔︎",
     \ "Unknown"   : "?"
+    \ }
+
+" Clang format
+let g:clang_format#style_options = {
+    \ "BasedOnStyle" : "GNU",
+    \ "AlignAfterOpenBracket" : "DontAlign",
+    \ "AlignConsecutiveAssignments" : "false",
+    \ "AlignConsecutiveDeclarations" : "false",
+    \ "AlignOperands": "false",
+    \ "AlignTrailingComments": "false",
+    \ "AllowAllParametersOfDeclarationOnNextLine": "false",
+    \ "AllowShortBlocksOnASingleLine": "false",
+    \ "AllowShortCaseLabelsOnASingleLine": "false",
+    \ "AllowShortFunctionsOnASingleLine": "None",
+    \ "AllowShortLoopsOnASingleLine": "false",
+    \ "AllowShortIfStatementsOnASingleLine": "false",
+    \ "BinPackArguments": "false",
+    \ "BinPackParameters": "true",
+    \ "BreakBeforeBinaryOperators": "None",
+    \ "BreakBeforeBraces": "Attach",
+    \ "BreakBeforeTernaryOperators": "true",
+    \ "BreakConstructorInitializersBeforeComma": "true",
+    \ "Cpp11BracedListStyle": "true",
+    \ "ColumnLimit": 80,
+    \ "ConstructorInitializerAllOnOneLineOrOnePerLine": "true",
+    \ "IndentCaseLabels": "true",
+    \ "Language": "Cpp",
+    \ "NamespaceIndentation": "None",
+    \ "PointerAlignment": "Right",
+    \ "SortIncludes": "true",
+    \ "SpaceAfterCStyleCast": "true",
+    \ "Standard": "Cpp03",
+    \ "IndentWidth": 4,
+    \ "TabWidth": 4,
+    \ "UseTab": "Always",
     \ }
