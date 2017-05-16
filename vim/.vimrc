@@ -170,6 +170,7 @@ set wildignore+=*/coverage/*
 let g:jedi#usages_command = "<leader>z"
 let g:jedi#popup_on_dot = 0
 let g:jedi#popup_select_first = 0
+let g:jedi#use_tabs_not_buffers = 1
 map <Leader>b Oimport pudb; pudb.set_trace() # BREAKPOINT<C-c>
 map <C-g> g:jedi#goto_command
 " Better navigating through omnicomplete option list
