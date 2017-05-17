@@ -4,12 +4,39 @@
 export PATH=$PATH:$HOME/.local/bin
 
 # Path to your oh-my-zsh installation.
-  export ZSH=/home/arxcruz/.oh-my-zsh
+export ZSH=/home/arxcruz/.oh-my-zsh
+
+# Antigen
+source /home/arxcruz/.zsh/antigen/antigen.zsh
+
+# Load the oh-my-zsh's library.
+antigen use oh-my-zsh
+
+# Bundles from the default repo (robbyrussell's oh-my-zsh).
+antigen bundle git
+antigen bundle heroku
+antigen bundle pip
+antigen bundle lein
+antigen bundle command-not-found
+
+# Syntax highlighting bundle.
+antigen bundle zsh-users/zsh-syntax-highlighting
+
+# Load the theme.
+antigen theme bhilburn/powerlevel9k powerlevel9k
+
+# Load theme font
+POWERLEVEL9K_MODE='awesome-fontconfig'
+POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(virtualenv dir rbenv vcs)
+POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=()
+
+# Tell Antigen that you're done.
+antigen apply
 
 # Set name of the theme to load. Optionally, if you set this to "random"
 # it'll load a random theme each time that oh-my-zsh is loaded.
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
-ZSH_THEME="robbyrussell"
+# ZSH_THEME="robbyrussell"
 
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
