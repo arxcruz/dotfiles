@@ -43,3 +43,6 @@
 [submodule "zsh/.zsh/antigen"]
 	path = zsh/.zsh/antigen
 	url = https://github.com/zsh-users/antigen.git
+[submodule "vim/.vim/bundle/typescript-vim"]
+	path = vim/.vim/bundle/typescript-vim
+	url = https://github.com/leafgarland/typescript-vim.git
