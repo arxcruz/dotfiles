@@ -4,10 +4,16 @@
 export PATH=$PATH:$HOME/.local/bin
 
 # Path to your oh-my-zsh installation.
-export ZSH=/home/arxcruz/.oh-my-zsh
+os="$(uname -s)"
+case "${os}" in
+    Linux*) home_dir="/home/arxcruz/";;
+    Darwin*) home_dir="/Users/arxcruz/";;
+esac
+
+export ZSH="${home_dir}".oh-my-zsh
 
 # Antigen
-source /home/arxcruz/.zsh/antigen/antigen.zsh
+source "${home_dir}".zsh/antigen/antigen.zsh
 
 # Load the oh-my-zsh's library.
 antigen use oh-my-zsh
@@ -113,6 +119,11 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 #
-source /usr/share/autojump/autojump.zsh
+if [ "${os}" '==' "Darwin" ]; then
+    source /usr/local/etc/profile.d/autojump.sh
+else
+    source /usr/share/autojump/autojump.zsh
+fi
+
 alias authkey='oathtool --hotp $(cat ~/.oath/key) -c $([ ! -f ~/.oath/counter ] && echo -n 0 > ~/.oath/counter || echo -n $(($(cat ~/.oath/counter)+1)) > ~/.oath/counter; cat ~/.oath/counter)'
 alias pinauth='[ ! -r ~/.oath/pin ] && echo "No PIN stored." || echo "$(cat ~/.oath/pin)$(authkey)"'
