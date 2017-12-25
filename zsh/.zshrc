@@ -120,6 +120,12 @@ source $ZSH/oh-my-zsh.sh
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 #
 if [ "${os}" '==' "Darwin" ]; then
+    # Virtualenv wrapper
+    export WORKON_HOME=$HOME/.virtualenvs
+    export PROJECT_HOME=$HOME/Documents/Projects/
+    source /usr/local/bin/virtualenvwrapper.sh
+
+    # Autojump
     source /usr/local/etc/profile.d/autojump.sh
 else
     source /usr/share/autojump/autojump.zsh
