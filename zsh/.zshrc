@@ -32,7 +32,10 @@ antigen bundle zsh-users/zsh-syntax-highlighting
 antigen theme bhilburn/powerlevel9k powerlevel9k
 
 # Load theme font
-POWERLEVEL9K_MODE='awesome-patched'
+
+if [ "${os}" '!=' "Darwin" ]; then
+  POWERLEVEL9K_MODE='awesome-patched'
+fi
 POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(virtualenv dir rbenv vcs)
 POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=()
 
