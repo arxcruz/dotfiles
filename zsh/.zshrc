@@ -33,10 +33,8 @@ antigen theme bhilburn/powerlevel9k powerlevel9k
 
 # Load theme font
 
-if [ "${os}" '!=' "Darwin" ]; then
-  POWERLEVEL9K_MODE='awesome-patched'
-fi
-POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(virtualenv dir rbenv vcs)
+POWERLEVEL9K_MODE='awesome-patched'
+POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(virtualenv os_icon dir rbenv vcs)
 POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=()
 
 # Tell Antigen that you're done.
