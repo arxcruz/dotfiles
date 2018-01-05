@@ -7,7 +7,8 @@ export PATH=$PATH:$HOME/.local/bin
 os="$(uname -s)"
 case "${os}" in
     Linux*) home_dir="/home/arxcruz/";;
-    Darwin*) home_dir="/Users/arxcruz/";;
+    Darwin*) home_dir="/Users/arxcruz/"
+             export LANG=en_US.UTF-8 LC_CTYPE="en_US.UTF-8";;
 esac
 
 export ZSH="${home_dir}".oh-my-zsh
