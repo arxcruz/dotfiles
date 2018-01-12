@@ -1,3 +1,9 @@
+neovim/.config/nvim/autoload
+neovim/.config/nvim/bundle
 weechat/.weechat/logs/*
 weechat/.weechat/weechat.log
 weechat/.weechat/script/plugins.xml.gz
+weechat/.weechat/python/*
+weechat/.weechat/urlgrab.conf
+weechat/.weechat/urls.log
+
