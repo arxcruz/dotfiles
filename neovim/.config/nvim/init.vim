@@ -1,16 +1,26 @@
+" Python environment
+if system('uname -s') =~ 'Darwin'
+    let g:python_host_prog = '/Users/arxcruz/.virtualenvs/neovim2/bin/python2.7'
+    let g:python3_host_prog = '/Users/arxcruz/.virtualenvs/neovim3/bin/python3.6'
+else
+    let g:python_host_prog = '/home/arxcruz/.virtualenvs/neovim2/bin/python2.7'
+    let g:python3_host_prog = '/home/arxcruz/.virtualenvs/neovim3/bin/python3.6'
+endif
+
+" Plugins
 call plug#begin('~/.config/nvim/bundle')
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'scrooloose/nerdtree'
 Plug 'scrooloose/nerdcommenter'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'tpope/vim-fugitive'
-Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-surround'
 Plug 'zchee/deoplete-jedi'
 Plug 'trevordmiller/nova-vim'
 Plug 'pangloss/vim-javascript'
 Plug 'mxw/vim-jsx'
 Plug 'w0rp/ale'
+Plug 'mhartington/nvim-typescript'
 " call PlugInstall to install new plugins
 call plug#end()
 
@@ -109,9 +119,9 @@ set smartcase
 
 " Disable stupid backup and swap files - they trigger too many events
 " for file system watchers
-set nobackup
-set nowritebackup
-set noswapfile
+"set nobackup
+"set nowritebackup
+"set noswapfile
 
 
 " basics
@@ -161,6 +171,9 @@ colorscheme nova
 
 " Close quickfix window
 noremap <Leader>w :ccl<CR>
+
+" NERDCommenter
+let g:NERDSpaceDelims = 1
 
 " NERDTree
 map <Leader>p :NERDTreeToggle<CR>
