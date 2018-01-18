@@ -6,9 +6,15 @@ export PATH=$PATH:$HOME/.local/bin
 # Path to your oh-my-zsh installation.
 os="$(uname -s)"
 case "${os}" in
-    Linux*) home_dir="/home/arxcruz/";;
+    Linux*) home_dir="/home/arxcruz/"
+            ;;
     Darwin*) home_dir="/Users/arxcruz/"
-             export LANG=en_US.UTF-8 LC_CTYPE="en_US.UTF-8";;
+             export LANG=en_US.UTF-8 LC_CTYPE="en_US.UTF-8"
+             # Use python from brew
+             export PATH="/usr/local/opt/python/libexec/bin:$PATH"
+             # Tmux
+             export TERM="screen-256color"
+             ;;
 esac
 
 export ZSH="${home_dir}".oh-my-zsh
@@ -129,6 +135,7 @@ if [ "${os}" '==' "Darwin" ]; then
 
     # Autojump
     source /usr/local/etc/profile.d/autojump.sh
+
 else
     source /usr/share/autojump/autojump.zsh
 fi
