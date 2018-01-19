@@ -14,6 +14,8 @@ case "${os}" in
              export PATH="/usr/local/opt/python/libexec/bin:$PATH"
              # Tmux
              export TERM="screen-256color"
+             # Neovim
+             alias vim=neovim
              ;;
 esac
 
