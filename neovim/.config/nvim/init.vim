@@ -1,4 +1,4 @@
-" Python environment
+<" Python environment
 if system('uname -s') =~ 'Darwin'
     let g:python_host_prog = '/Users/arxcruz/.virtualenvs/neovim2/bin/python2.7'
     let g:python3_host_prog = '/Users/arxcruz/.virtualenvs/neovim3/bin/python3.6'
@@ -18,9 +18,10 @@ Plug 'tpope/vim-surround'
 Plug 'zchee/deoplete-jedi'
 Plug 'trevordmiller/nova-vim'
 Plug 'pangloss/vim-javascript'
-Plug 'mxw/vim-jsx'
-Plug 'w0rp/ale'
+" Plug 'mxw/vim-jsx'
+" Plug 'w0rp/ale'
 Plug 'mhartington/nvim-typescript'
+Plug 'leafgarland/typescript-vim'
 " call PlugInstall to install new plugins
 call plug#end()
 
@@ -78,8 +79,8 @@ au InsertLeave * match ExtraWhitespace /\s\+$/
 
 " Enable syntax highlighting
 " You need to reload this file for the change to apply
-filetype off
-filetype plugin indent on
+" filetype off
+" filetype plugin indent on
 syntax on
 
 
@@ -119,9 +120,9 @@ set smartcase
 
 " Disable stupid backup and swap files - they trigger too many events
 " for file system watchers
-"set nobackup
-"set nowritebackup
-"set noswapfile
+set nobackup
+set nowritebackup
+set noswapfile
 
 
 " basics
@@ -192,7 +193,7 @@ let g:NERDTreeMapOpenInTabSilent = '<RightMouse>'
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.pyc,*.db,*.sqlite
 
 " jsx
-let g:jsx_ext_required = 0
+" let g:jsx_ext_required = 0
 
 " ale prettier-eslint
 "let g:ale_fixers = {
