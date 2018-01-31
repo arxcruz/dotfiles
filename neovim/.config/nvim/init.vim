@@ -1,4 +1,14 @@
-<" Python environment
+" Install Plug if it's not already installed
+if empty(glob('~/.config/nvim/autoload/plug.vim'))
+  silent !curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs
+    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+endif
+
+" Automatic reloading of .vimrc
+autocmd! bufwritepost .vimrc source %
+
+" Python environment
 if system('uname -s') =~ 'Darwin'
     let g:python_host_prog = '/Users/arxcruz/.virtualenvs/neovim2/bin/python2.7'
     let g:python3_host_prog = '/Users/arxcruz/.virtualenvs/neovim3/bin/python3.6'
@@ -15,15 +25,23 @@ Plug 'scrooloose/nerdcommenter'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-surround'
+Plug 'davidhalter/jedi-vim'
 Plug 'zchee/deoplete-jedi'
 Plug 'trevordmiller/nova-vim'
+
+Plug 'neomake/neomake'
 Plug 'pangloss/vim-javascript'
+" Plug 'nvie/vim-flake8'
 " Plug 'mxw/vim-jsx'
 " Plug 'w0rp/ale'
 Plug 'mhartington/nvim-typescript'
 Plug 'leafgarland/typescript-vim'
 " call PlugInstall to install new plugins
 call plug#end()
+
+" Neomake
+let g:neomake_python_enabled_makers = ['flake8', 'pep8']
+autocmd! BufWritePost * Neomake
 
 " Rebind <Leader> key
 " I like to have it here becuase it is easier to reach than the default and
@@ -172,6 +190,33 @@ colorscheme nova
 
 " Close quickfix window
 noremap <Leader>w :ccl<CR>
+
+" Settings for jedi-vim
+" cd ~/.vim/bundle
+" git clone git://github.com/davidhalter/jedi-vim.git
+let g:jedi#usages_command = "<leader>z"
+let g:jedi#popup_on_dot = 0
+let g:jedi#popup_select_first = 0
+let g:jedi#use_tabs_not_buffers = 1
+map <Leader>b Oimport pudb; pudb.set_trace() # BREAKPOINT<C-c>
+map <C-g> g:jedi#goto_command
+" Better navigating through omnicomplete option list
+" See
+" http://stackoverflow.com/questions/2170023/how-to-map-keys-for-popup-menu-in-vim
+set completeopt=longest,menuone
+function! OmniPopup(action)
+    if pumvisible()
+        if a:action == 'j'
+            return "\<C-N>"
+        elseif a:action == 'k'
+            return "\<C-P>"
+        endif
+    endif
+    return a:action
+endfunction
+
+inoremap <silent><C-j> <C-R>=OmniPopup('j')<CR>
+inoremap <silent><C-k> <C-R>=OmniPopup('k')<CR>
 
 " NERDCommenter
 let g:NERDSpaceDelims = 1
