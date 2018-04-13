@@ -2,17 +2,35 @@
 	"segments": {
 		"right": [
             {
+                "function": "powerline.segments.common.net.network_load",
+			    "args": {
+				    "recv_format": "⬇ {value:>8}",
+				    "sent_format": "⬆ {value:>8}"
+			    }
+		    },
+            {
                 "function": "powerline.segments.common.wthr.weather",
                 "name": "weather",
                 "priority": 60,
                 "args": {
                     "unit": "C",
-                    "location_query": "berlin, germany"
+                    "location_query": "berlin, germany",
+                    "icons": {
+                        "day":           "〇",
+                        "blustery":      "⚑",
+                        "rainy":         "☔",
+                        "cloudy":        "☁",
+                        "snowy":         "❅",
+                        "stormy":        "☈",
+                        "foggy":         "≡",
+                        "sunny":         "☼",
+                        "night":         "☾",
+                        "windy":         "☴",
+                        "not_available": "�",
+                        "unknown":       "⚠"
+                    }
                 }
             },
-			{
-				"function": "powerline.segments.common.time.date"
-			},
 			{
 				"function": "powerline.segments.common.time.date",
 				"name": "time",
