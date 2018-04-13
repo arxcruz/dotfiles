@@ -15,7 +15,7 @@ case "${os}" in
              # Tmux
              export TERM="screen-256color"
              # Neovim
-             alias vim=neovim
+             alias vim=nvim
              ;;
 esac
 
