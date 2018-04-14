@@ -1,0 +1,18 @@
+---
+- name: Install tmux
+  package:
+    name: tmux
+    state: present
+  when: ansible_system == 'Darwin'
+
+- name: Install tmux
+  package:
+    name: tmux
+    state: present
+  become: true
+  when: ansible_system == 'Linux'
+
+- name: Install tmux files using stow
+  shell: stow -t {{ ansible_user_dir }} -S tmux
+  args:
+    chdir: "{{ role_path }}/files"
