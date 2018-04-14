@@ -1,9 +1,9 @@
-neovim/.config/nvim/autoload
-neovim/.config/nvim/bundle
-weechat/.weechat/logs/*
-weechat/.weechat/weechat.log
-weechat/.weechat/script/plugins.xml.gz
-weechat/.weechat/python/*
-weechat/.weechat/urlgrab.conf
-weechat/.weechat/urls.log
+ansible/roles/neovim/files/neovim/.config/nvim/autoload/
+ansible/roles/neovim/files/neovim/.config/nvim/bundle
+ansible/roles/weechat/files/weechat/.weechat/logs/*
+ansible/roles/weechat/files/weechat/.weechat/weechat.log
+ansible/roles/weechat/files/weechat/.weechat/script/plugins.xml.gz
+ansible/roles/weechat/files/weechat/.weechat/python/*
+ansible/roles/weechat/files/weechat/.weechat/urlgrab.conf
+ansible/roles/weechat/files/weechat/.weechat/urls.log
 
