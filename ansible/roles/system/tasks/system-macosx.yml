@@ -1,0 +1,43 @@
+---
+- name: Check if homebrew is already installed
+  stat:
+    path: /usr/local/bin/brew
+  register: homebrew
+
+- name: Installing homebrew
+  script: install-homebrew.sh
+  when: not homebrew.stat.exists
+
+- name: Install fonts
+  homebrew_cask: name={{ item }} state=present
+  with_items:
+    - font-droid-sans-mono-for-powerline
+    - font-droidsansmono-nerd-font
+    - font-droidsansmono-nerd-font-mono
+    - font-hack-nerd-font
+
+- name: Install virtualenvwrapper
+  pip:
+    name: virtualenvwrapper
+    executable: pip3
+  become: true
+
+- name: Install python
+  package: name={{ item }} state=present
+  with_items:
+    - python
+
+- name: Install autojump
+  package:
+    name: autojump
+    state: present
+
+- name: Install stow
+  package:
+    name: stow
+    state: present
+
+- name: Install tmate
+  package:
+    name: tmate
+    state: present

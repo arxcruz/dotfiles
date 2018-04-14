@@ -1,0 +1,69 @@
+---
+- name: Install autojump
+  package:
+    name: autojump
+    state: present
+  become: true
+
+- name: Install autojump-zsh
+  package:
+    name: autojump-zsh
+    state: present
+  become: true
+
+- name: Install git
+  package:
+    name: git
+    state: present
+  become: true
+
+- name: Install git-review
+  package:
+    name: git-review
+    state: present
+  become: true
+
+- name: Install virtualenv
+  package:
+    name: python-virtualenv
+    state: present
+  become: true
+
+- name: Install gcc
+  package:
+    name: gcc
+    state: present
+  become: true
+
+- name: Install stow
+  package:
+    name: stow
+    state: present
+  become: true
+
+- name: Install tmate
+  package:
+    name: tmate
+    state: present
+  become: true
+
+- name: Install tmux-powerline
+  package:
+    name: tmux-powerline
+    state: present
+  become: true
+
+- name: Install powerline-fonts
+  package:
+    name: powerline-fonts
+    state: present
+  become: true
+
+- name: Install openstack packages
+  package:
+    name: {{ item }}
+    state: present
+  with_items:
+    - python-openstackclient
+    - python-heatclient
+

@@ -1,0 +1,9 @@
+---
+- include_tasks: system-macosx.yml
+  when:
+    ansible_system == 'Darwin'
+
+- include_tasks: system-linux.yml
+  when:
+    ansible_system == "Linux"
+
