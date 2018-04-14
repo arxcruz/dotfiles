@@ -10,17 +10,17 @@ autocmd! bufwritepost .vimrc source %
 
 " Python environment
 if system('uname -s') =~ 'Darwin'
-    let g:python_host_prog = '/Users/arxcruz/.virtualenvs/neovim2/bin/python2.7'
-    let g:python3_host_prog = '/Users/arxcruz/.virtualenvs/neovim3/bin/python3.6'
-    let g:neomake_python_flake8_exe = '/Users/arxcruz/.virtualenvs/neovim3/bin/flake8'
-    let g:neomake_python_pylint_exe = '/Users/arxcruz/.virtualenvs/neovim3/bin/pylint'
-    let g:neomake_python_pep8_exe = '/Users/arxcruz/.virtualenvs/neovim3/bin/pycodestyle'
+    let g:python_host_prog = '/Users/arxcruz/.virtualenvs/neovim/bin/python3'
+    let g:python3_host_prog = '/Users/arxcruz/.virtualenvs/neovim/bin/python3'
+    let g:neomake_python_flake8_exe = '/Users/arxcruz/.virtualenvs/neovim/bin/flake8'
+    let g:neomake_python_pylint_exe = '/Users/arxcruz/.virtualenvs/neovim/bin/pylint'
+    let g:neomake_python_pep8_exe = '/Users/arxcruz/.virtualenvs/neovim/bin/pycodestyle'
 else
-    let g:python_host_prog = '/home/arxcruz/.virtualenvs/neovim2/bin/python2.7'
-    let g:python3_host_prog = '/home/arxcruz/.virtualenvs/neovim3/bin/python3.6'
-    let g:neomake_python_flake8_exe = '/Users/arxcruz/.virtualenvs/neovim3/bin/flake8'
-    let g:neomake_python_pylint_exe = '/home/arxcruz/.virtualenvs/neovim3/bin/pylint'
-    let g:neomake_python_pep8_exe = '/home/arxcruz/.virtualenvs/neovim3/bin/pycodestyle'
+    let g:python_host_prog = '/home/arxcruz/.virtualenvs/neovim/bin/python3'
+    let g:python3_host_prog = '/home/arxcruz/.virtualenvs/neovim/bin/python3'
+    let g:neomake_python_flake8_exe = '/Users/arxcruz/.virtualenvs/neovim/bin/flake8'
+    let g:neomake_python_pylint_exe = '/home/arxcruz/.virtualenvs/neovim/bin/pylint'
+    let g:neomake_python_pep8_exe = '/home/arxcruz/.virtualenvs/neovim/bin/pycodestyle'
 endif
 
 " Plugins

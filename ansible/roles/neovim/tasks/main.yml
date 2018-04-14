@@ -1,0 +1,34 @@
+---
+- name: Install neovim
+  package:
+    name: neovim
+    state: present
+  become: true
+  when: ansible_system == 'Linux'
+
+- name: Install neovim
+  package:
+    name: neovim
+    state: present
+  when: ansible_system == 'Darwin'
+
+- name: Install neovim files using stow
+  shell: stow -t {{ ansible_user_dir }} -S neovim
+  args:
+    chdir: "{{ role_path }}/files"
+
+- name: Create neovim virtualenv
+  shell: virtualenv -p `which python` "{{ ansible_user_dir }}/.virtualenvs/neovim"
+
+- name: Setup neovim python bindigns
+  pip:
+    name: "{{ item }}"
+    virtualenv: "{{ ansible_user_dir }}/.virtualenvs/neovim"
+    state: present
+  with_items:
+    - neovim
+    - flake8
+    - pep8
+    - pyflakes
+    - pycodestyle
+
