@@ -66,4 +66,5 @@
   with_items:
     - python-openstackclient
     - python-heatclient
+  become: true
 
