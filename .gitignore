@@ -6,4 +6,4 @@ ansible/roles/weechat/files/weechat/.weechat/script/plugins.xml.gz
 ansible/roles/weechat/files/weechat/.weechat/python/*
 ansible/roles/weechat/files/weechat/.weechat/urlgrab.conf
 ansible/roles/weechat/files/weechat/.weechat/urls.log
-
+ansible/run.retry
