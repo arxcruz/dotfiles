@@ -3,7 +3,12 @@
 # Path to jhbuild
 export PATH=$PATH:$HOME/.local/bin
 
-# Path to your oh-my-zsh installation.
+# Neovim
+alias vim=nvim
+
+# Tmux
+export TERM="screen-256color"
+
 os="$(uname -s)"
 case "${os}" in
     Linux*) home_dir="/home/arxcruz/"
@@ -12,13 +17,10 @@ case "${os}" in
              export LANG=en_US.UTF-8 LC_CTYPE="en_US.UTF-8"
              # Use python from brew
              export PATH="/usr/local/opt/python/libexec/bin:$PATH"
-             # Tmux
-             export TERM="screen-256color"
-             # Neovim
-             alias vim=nvim
              ;;
 esac
 
+# Path to your oh-my-zsh installation.
 export ZSH="${home_dir}".oh-my-zsh
 
 # Antigen
