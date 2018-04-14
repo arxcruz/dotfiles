@@ -1,0 +1,44 @@
+---
+- name: Install zsh files
+  package:
+    name: {{ item }}
+    state: present
+  with_items:
+    - zsh
+    - autojump-zsh
+    - zsh-syntax-highlighting
+  become: true
+  when: ansible_system == 'Linux'
+
+  #- name: Install zsh files
+  #  package:
+  #    name: {{ item }}
+  #    state: present
+  #  with_items:
+  #    - zsh
+  #    - zsh-completions
+  #  when: ansible_system == 'Darwin'
+
+- name: Check if oh-my-zsh is already installed
+  stat:
+    path: "{{ ansible_user_dir }}/.oh-my-zsh"
+  register: ohmyzsh
+
+- name: Install oh-my-zsh
+  script: install-oh-my-zsh.sh
+  when: not ohmyzsh.stat.exists
+
+- name: Install zsh files using stow
+  shell: stow -t {{ ansible_user_dir }} -S zsh
+  args:
+    chdir: "{{ role_path }}/files"
+
+- name: Change default shell to zsh
+  shell: chsh -s /bin/zsh {{ ansible_user_id }}
+  when: ansible_system == 'Linux'
+
+  #- name: Change default shell to zsh
+  #  shell: chsh -s /usr/local/bin/zsh
+  #  when: ansible_system == 'Darwin'
+
+
