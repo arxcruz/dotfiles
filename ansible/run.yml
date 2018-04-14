@@ -1,0 +1,9 @@
+---
+- hosts: all
+  roles:
+    - { role: 'system', tags: ['system'] }
+    - { role: 'neovim', tags: ['neovim'] }
+    - { role: 'powerline', tags: ['powerline'] }
+    - { role: 'tmux', tags: ['tmux'] }
+    - { role: 'weechat', tags: ['weechat'] }
+    - { role: 'zsh', tags: ['zsh'] }
