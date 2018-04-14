@@ -1,0 +1,19 @@
+---
+- name: Install powerline-status
+  pip:
+    name: powerline-status
+    executable: pip3
+  become: true
+  when: ansible_system == 'Darwin'
+
+- name: Install powerline
+  package:
+    name: powerline
+    state: present
+  become: true
+  when: ansible_system == 'Linux'
+
+- name: Install powerline files using stow
+  shell: stow -t {{ ansible_user_dir }} -S powerline
+  args:
+    chdir: "{{ role_path }}/files"
