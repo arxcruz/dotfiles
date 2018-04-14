@@ -38,6 +38,7 @@
 - name: Change default shell to zsh
   shell: chsh -s /bin/zsh {{ ansible_user_id }}
   when: ansible_system == 'Linux'
+  become: true
 
   #- name: Change default shell to zsh
   #  shell: chsh -s /usr/local/bin/zsh
