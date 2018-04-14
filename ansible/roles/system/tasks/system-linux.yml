@@ -29,6 +29,12 @@
     state: present
   become: true
 
+- name: Install virtualenvwrapper
+  package:
+    name: python-virtualenvwrapper
+    state: present
+  become: true
+
 - name: Install gcc
   package:
     name: gcc
