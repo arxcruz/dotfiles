@@ -26,8 +26,8 @@
 
 - name: Cloning oh-my-zsh
   git:
-    repo=https://github.com/robbyrussell/oh-my-zsh
-    dest="{{ ansible_user_dir }}/.oh-my-zsh
+    repo: https://github.com/robbyrussell/oh-my-zsh
+    dest: "{{ ansible_user_dir }}/.oh-my-zsh
   when: not ohmyzsh.stat.exists
 
 - name: Install zsh files using stow
