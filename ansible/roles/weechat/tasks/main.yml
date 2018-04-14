@@ -1,0 +1,19 @@
+---
+- name: Install weechat
+  package:
+    name: weechat
+    state: present
+  when: ansible_system == 'Darwin'
+
+- name: Install weechat
+  package:
+    name: weechat
+    state: present
+  become: true
+  when: ansible_system == 'Linux'
+
+- name: Install weechat files using stow
+  shell: stow -t {{ ansible_user_dir }} -S weechat
+  args:
+    chdir: "{{ role_path }}/files"
+
