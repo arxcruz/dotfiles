@@ -29,6 +29,12 @@
     state: present
   become: true
 
+- name: Install virtualenvwrapper
+  package:
+    name: python-virtualenvwrapper
+    state: present
+  become: true
+
 - name: Install gcc
   package:
     name: gcc
@@ -68,3 +74,6 @@
     - python-heatclient
   become: true
 
+- name: Install python3 alternatives
+  shell: alternatives --install /usr/bin/python python /usr/bin/python3 2
+  become: true
