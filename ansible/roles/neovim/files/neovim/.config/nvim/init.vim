@@ -42,6 +42,7 @@ Plug 'pangloss/vim-javascript'
 " Plug 'w0rp/ale'
 Plug 'mhartington/nvim-typescript'
 Plug 'leafgarland/typescript-vim'
+Plug 'mhinz/vim-grepper'
 " call PlugInstall to install new plugins
 call plug#end()
 
