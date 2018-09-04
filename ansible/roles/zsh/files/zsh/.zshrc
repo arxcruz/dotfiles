@@ -41,6 +41,7 @@ antigen bundle zsh-users/zsh-syntax-highlighting
 
 # Load the theme.
 antigen theme bhilburn/powerlevel9k powerlevel9k
+antigen theme https://github.com/iam4x/zsh-iterm-touchbar
 
 # Load theme font
 
