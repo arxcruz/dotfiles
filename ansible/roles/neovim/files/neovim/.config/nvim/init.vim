@@ -26,30 +26,41 @@ endif
 " Plugins
 call plug#begin('~/.config/nvim/bundle')
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+Plug 'Shougo/vimproc.vim', {'do' : 'make'}
+
+" General usage
 Plug 'scrooloose/nerdtree'
 Plug 'scrooloose/nerdcommenter'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-surround'
-Plug 'davidhalter/jedi-vim'
-Plug 'zchee/deoplete-jedi'
-Plug 'trevordmiller/nova-vim'
-Plug 'vim-airline/vim-airline'
-Plug 'neomake/neomake'
-Plug 'pangloss/vim-javascript'
 Plug 'mklabs/split-term.vim'
-" Plug 'nvie/vim-flake8'
-" Plug 'mxw/vim-jsx'
-" Plug 'w0rp/ale'
+Plug 'mhinz/vim-grepper'
+
+" Themes
+Plug 'vim-airline/vim-airline'
+Plug 'trevordmiller/nova-vim'
+
+" Python development
+Plug 'davidhalter/jedi-vim'
+" Plug 'zchee/deoplete-jedi'
+Plug 'neomake/neomake'
+
+" TypeScript / Angular
 Plug 'mhartington/nvim-typescript'
 Plug 'leafgarland/typescript-vim'
-Plug 'mhinz/vim-grepper'
+Plug 'jiangmiao/auto-pairs'
+Plug 'Quramy/tsuquyomi'
 " call PlugInstall to install new plugins
 call plug#end()
+
+" slit-term
+set splitbelow
 
 " Neomake
 let g:neomake_python_enabled_makers = ['flake8', 'pep8']
 let g:neomake_open_list = 2
+let g:neomake_html_enabled_makers = []
 autocmd! BufWritePost * Neomake
 
 " Rebind <Leader> key
