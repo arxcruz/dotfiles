@@ -22,3 +22,6 @@
 - name: Install python3 alternatives
   shell: alternatives --install /usr/bin/python python /usr/bin/python3 2
   become: true
+
+- name: Load tilix config to dconf
+  shell: dconf load /com/gexperts/Tilix/ < "{{ role_path }}/files/tilix.conf"
