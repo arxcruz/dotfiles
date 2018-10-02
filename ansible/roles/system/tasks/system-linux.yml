@@ -65,6 +65,12 @@
     state: present
   become: true
 
+- name: Install util-linux-user
+  package:
+    name: util-linux-user
+    state: present
+  become: true
+
 - name: Install openstack packages
   package:
     name: "{{ item }}"
