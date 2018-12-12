@@ -1,79 +1,27 @@
 ---
-- name: Install autojump
-  package:
-    name: autojump
-    state: present
-  become: true
-
-- name: Install autojump-zsh
-  package:
-    name: autojump-zsh
-    state: present
-  become: true
-
-- name: Install git
-  package:
-    name: git
-    state: present
-  become: true
-
-- name: Install git-review
-  package:
-    name: git-review
-    state: present
-  become: true
-
-- name: Install virtualenv
-  package:
-    name: python-virtualenv
-    state: present
-  become: true
-
-- name: Install virtualenvwrapper
-  package:
-    name: python-virtualenvwrapper
-    state: present
-  become: true
-
-- name: Install gcc
-  package:
-    name: gcc
-    state: present
-  become: true
-
-- name: Install stow
-  package:
-    name: stow
-    state: present
-  become: true
-
-- name: Install tmate
-  package:
-    name: tmate
-    state: present
-  become: true
-
-- name: Install tmux-powerline
-  package:
-    name: tmux-powerline
-    state: present
-  become: true
-
-- name: Install powerline-fonts
-  package:
-    name: powerline-fonts
-    state: present
-  become: true
-
-- name: Install openstack packages
+- name: Install system packages
   package:
     name: "{{ item }}"
     state: present
   with_items:
-    - python-openstackclient
+    - autojump
+    - autojump-zsh
+    - gcc
+    - git
+    - git-review
     - python-heatclient
+    - python-openstackclient
+    - python-virtualenv
+    - stow
+    - tilix
+    - tmate
+    - tmux-powerline
+    - util-linux-user
   become: true
 
 - name: Install python3 alternatives
   shell: alternatives --install /usr/bin/python python /usr/bin/python3 2
   become: true
+
+- name: Load tilix config to dconf
+  shell: dconf load /com/gexperts/Tilix/ < "{{ role_path }}/files/tilix.conf"
