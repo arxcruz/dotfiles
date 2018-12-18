@@ -46,6 +46,9 @@ Plug 'davidhalter/jedi-vim'
 " Plug 'zchee/deoplete-jedi'
 Plug 'neomake/neomake'
 
+" Golang development
+Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
+
 " TypeScript / Angular
 Plug 'mhartington/nvim-typescript'
 Plug 'leafgarland/typescript-vim'
