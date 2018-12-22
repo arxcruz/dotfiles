@@ -1,0 +1,6 @@
+[Unit]
+Description=Razer Blade XHC
+After=syslog.target network.target
+
+[Service]
+ExecStart=echo XHC | tee /proc/acpi/wakeup
