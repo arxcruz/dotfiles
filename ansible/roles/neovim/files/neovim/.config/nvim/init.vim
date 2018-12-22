@@ -245,9 +245,9 @@ inoremap <silent><C-k> <C-R>=OmniPopup('k')<CR>
 let g:NERDSpaceDelims = 1
 
 " NERDTree
-map <Leader>p :NERDTreeToggle<CR>
+" map <Leader>p :NERDTreeToggle<CR>
 
-"NERDTree
+" NERDTree
 " How can I close vim if the only window left open is a NERDTree?
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 " toggle NERDTree
