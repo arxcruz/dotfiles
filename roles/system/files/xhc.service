@@ -1,6 +1,9 @@
 [Unit]
 Description=Razer Blade XHC
-After=syslog.target network.target
 
 [Service]
-ExecStart=echo XHC | tee /proc/acpi/wakeup
+Type=oneshot
+ExecStart=/bin/bash -c "echo XHC | tee /proc/acpi/wakeup"
+
+[Install]
+WantedBy=multi-user.target
