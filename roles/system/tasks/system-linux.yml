@@ -32,7 +32,7 @@
   - name: Install XHC workaround for Razer Blade
     copy:
       src: xhc.service
-      dest: /lib/systemd/system/xhc.service
+      dest: /etc/systemd/system/xhc.service
       mode: 644
 
   - name: Start XHC service

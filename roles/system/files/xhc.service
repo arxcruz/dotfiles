@@ -2,8 +2,7 @@
 Description=Razer Blade XHC
 
 [Service]
-Type=oneshot
-ExecStart=/bin/bash -c "echo XHC | tee /proc/acpi/wakeup"
+ExecStart=/bin/bash -c "echo EHC1 >> /proc/acpi/wakeup; echo XHC >> /proc/acpi/wakeup"
 
 [Install]
 WantedBy=multi-user.target
