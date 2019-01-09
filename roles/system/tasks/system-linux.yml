@@ -9,6 +9,8 @@
     - gcc
     - git
     - git-review
+    - gtk3-immodules
+    - gtk3-immodule-xim
     - python-heatclient
     - python-openstackclient
     - python-virtualenv
