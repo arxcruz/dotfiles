@@ -3,6 +3,10 @@
 # Path to jhbuild
 export PATH=$PATH:$HOME/.local/bin
 
+# Golang
+export GOPATH=$HOME/go
+export PATH=$PATH:$GOROOT/bin:$GOPATH/bin
+
 # Neovim
 alias vim=nvim
 
