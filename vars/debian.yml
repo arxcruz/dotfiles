@@ -9,3 +9,5 @@ system_packages:
   - python-virtualenv
   - stow
   - tmate
+
+alternatives: "update-alternatives"

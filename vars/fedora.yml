@@ -15,3 +15,5 @@ system_packages:
   - tmate
   - tmux-powerline
   - util-linux-user
+
+alternatives: "alternatives"
