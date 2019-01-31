@@ -14,6 +14,7 @@
 
 - name: Load tilix config to dconf
   shell: dconf load /com/gexperts/Tilix/ < "{{ role_path }}/files/tilix.conf"
+  when: is_graphical | default(true)
 
 - block:
   - name: Install XHC workaround for Razer Blade
