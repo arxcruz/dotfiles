@@ -22,13 +22,7 @@
 
 - name: Setup neovim python bindigns
   pip:
-    name: "{{ item }}"
+    name: ['neovim', 'flake8', 'pep8', 'pyflakes', 'pycodestyle']
     virtualenv: "{{ ansible_user_dir }}/.virtualenvs/neovim"
     state: present
-  with_items:
-    - neovim
-    - flake8
-    - pep8
-    - pyflakes
-    - pycodestyle
 
