@@ -6,4 +6,11 @@ roles/weechat/files/weechat/.weechat/script/plugins.xml.gz
 roles/weechat/files/weechat/.weechat/python/*
 roles/weechat/files/weechat/.weechat/urlgrab.conf
 roles/weechat/files/weechat/.weechat/urls.log
+roles/weechat/files/weechat/.weechat/guile.conf
+roles/weechat/files/weechat/.weechat/lua.conf
+roles/weechat/files/weechat/.weechat/perl.conf
+roles/weechat/files/weechat/.weechat/python.conf
+roles/weechat/files/weechat/.weechat/ruby.conf
+roles/weechat/files/weechat/.weechat/tcl.conf
+roles/weechat/files/weechat/.weechat/xfer.conf
 run.retry
