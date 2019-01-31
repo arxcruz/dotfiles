@@ -1,0 +1,11 @@
+---
+system_packages:
+  - autojump
+  - gcc
+  - git
+  - git-review
+  - python-heatclient
+  - python-openstackclient
+  - python-virtualenv
+  - stow
+  - tmate
