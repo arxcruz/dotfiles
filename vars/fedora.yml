@@ -1,0 +1,17 @@
+---
+system_packages:
+  - autojump
+  - autojump-zsh
+  - gcc
+  - git
+  - git-review
+  - gtk3-immodules
+  - gtk3-immodule-xim
+  - python-heatclient
+  - python-openstackclient
+  - python-virtualenv
+  - stow
+  - tilix
+  - tmate
+  - tmux-powerline
+  - util-linux-user

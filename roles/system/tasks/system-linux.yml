@@ -4,21 +4,8 @@
     name: "{{ item }}"
     state: present
   with_items:
-    - autojump
-    - autojump-zsh
-    - gcc
-    - git
-    - git-review
-    - gtk3-immodules
-    - gtk3-immodule-xim
-    - python-heatclient
-    - python-openstackclient
-    - python-virtualenv
-    - stow
-    - tilix
-    - tmate
-    - tmux-powerline
-    - util-linux-user
+    - "{{ system_packages }}"
+
   become: true
 
 - name: Install python3 alternatives
@@ -40,6 +27,6 @@
       name: xhc.service
       state: started
       enabled: yes
-  when: "{{ razer_blade | bool }}"
+  when: razer_blade | bool
   become: true
 
