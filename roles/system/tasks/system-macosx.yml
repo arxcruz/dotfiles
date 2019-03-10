@@ -8,6 +8,9 @@
   script: install-homebrew.sh
   when: not homebrew.stat.exists
 
+- name: Add homebrew cask for fonts
+  shell: brew tap homebrew/cask-fonts
+
 - name: Install fonts
   homebrew_cask: name={{ item }} state=present
   with_items:
