@@ -1,7 +1,7 @@
 ---
-- name: Install powerline-status
+- name: Install powerline-status and dependences
   pip:
-    name: powerline-status
+    name: ['powerline-status', 'psutil']
     executable: pip3
   become: true
   when: ansible_system == 'Darwin'
