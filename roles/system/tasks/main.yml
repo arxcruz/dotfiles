@@ -1,4 +1,9 @@
 ---
+- name: Check if .config directory exists
+  file:
+    path: "{{ lookup('env', 'HOME') }}/.config"
+    state: directory
+
 - include_tasks: system-macosx.yml
   when:
     ansible_system == 'Darwin'
