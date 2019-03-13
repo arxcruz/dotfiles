@@ -31,6 +31,7 @@ Plug 'Shougo/vimproc.vim', {'do' : 'make'}
 " General usage
 Plug 'scrooloose/nerdtree'
 Plug 'scrooloose/nerdcommenter'
+Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-surround'
