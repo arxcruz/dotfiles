@@ -18,7 +18,7 @@ if system('uname -s') =~ 'Darwin'
 else
     let g:python_host_prog = '/home/arxcruz/.virtualenvs/neovim/bin/python3'
     let g:python3_host_prog = '/home/arxcruz/.virtualenvs/neovim/bin/python3'
-    let g:neomake_python_flake8_exe = '/Users/arxcruz/.virtualenvs/neovim/bin/flake8'
+    let g:neomake_python_flake8_exe = '/home/arxcruz/.virtualenvs/neovim/bin/flake8'
     let g:neomake_python_pylint_exe = '/home/arxcruz/.virtualenvs/neovim/bin/pylint'
     let g:neomake_python_pep8_exe = '/home/arxcruz/.virtualenvs/neovim/bin/pycodestyle'
 endif
