@@ -30,6 +30,11 @@
   with_items:
     - python
 
+- name: Install coreutils
+  package:
+    name: coreutils
+    state: present
+
 - name: Install autojump
   package:
     name: autojump
