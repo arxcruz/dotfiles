@@ -49,8 +49,9 @@ antigen theme https://github.com/iam4x/zsh-iterm-touchbar
 
 # Load theme font
 
-POWERLEVEL9K_MODE='awesome-patched'
-POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(virtualenv os_icon dir rbenv vcs)
+# POWERLEVEL9K_MODE='awesome-patched'
+POWERLEVEL9K_MODE='awesome'
+POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(virtualenv dir rbenv vcs)
 POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=()
 
 # Tell Antigen that you're done.
