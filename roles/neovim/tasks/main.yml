@@ -25,4 +25,3 @@
     name: ['neovim', 'flake8', 'pep8', 'pyflakes', 'pycodestyle']
     virtualenv: "{{ ansible_user_dir }}/.virtualenvs/neovim"
     state: present
-
