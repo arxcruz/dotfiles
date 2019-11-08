@@ -10,6 +10,7 @@ system_packages:
   - python3-heatclient
   - python3-openstackclient
   - python3-virtualenv
+  - python3-virtualenvwrapper
   - stow
   - tilix
   - tmate
