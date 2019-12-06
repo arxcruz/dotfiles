@@ -151,5 +151,10 @@ else
     source /usr/share/autojump/autojump.zsh
 fi
 
+# Load powerlevel10k
+source ~/.p10k.zsh
+
+# Aliases
 alias authkey='oathtool --hotp $(cat ~/.oath/key) -c $([ ! -f ~/.oath/counter ] && echo -n 0 > ~/.oath/counter || echo -n $(($(cat ~/.oath/counter)+1)) > ~/.oath/counter; cat ~/.oath/counter)'
 alias pinauth='[ ! -r ~/.oath/pin ] && echo "No PIN stored." || echo "$(cat ~/.oath/pin)$(authkey)"'
+alias tb='SHELL=zsh toolbox enter -c arxcruz'
