@@ -13,7 +13,12 @@
   become: true
   when: ansible_system == 'Linux'
 
-- name: Install powerline files using stow
-  shell: stow -t {{ ansible_user_dir }} -S powerline
-  args:
-    chdir: "{{ role_path }}/files"
+- name: Install powerline config.json
+  copy:
+    src: config.json
+    dest: "{{ lookup('env','HOME') }}/.config/powerline"
+
+- name: Install powerline theme files
+  copy:
+    src: default.json
+    dest: "{{ lookup('env', 'HOME') }}/.config/powerline/themes/tmux"

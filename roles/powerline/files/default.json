@@ -1,0 +1,24 @@
+{
+	"segments": {
+		"right": [
+            {
+                "function": "powerline.segments.common.net.network_load",
+			    "args": {
+				    "recv_format": "⬇ {value:>8}",
+				    "sent_format": "⬆ {value:>8}"
+			    }
+		    },
+			{
+				"function": "powerline.segments.common.time.date",
+				"name": "time",
+				"args": {
+					"format": "%H:%M",
+					"istime": true
+				}
+			},
+			{
+				"function": "powerline.segments.common.bat.battery"
+			}
+		]
+	}
+}
