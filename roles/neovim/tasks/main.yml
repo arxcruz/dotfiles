@@ -12,10 +12,21 @@
     state: present
   when: ansible_system == 'Darwin'
 
-- name: Install neovim files using stow
-  shell: stow -t {{ ansible_user_dir }} -S neovim
-  args:
-    chdir: "{{ role_path }}/files"
+- name: Clean neovim directory
+  file:
+    src: "{{ lookup('env', 'HOME') }}/.config/nvim"
+    state: absent
+  when: cleanup | default(false) | bool
+
+- name: Install neovim config file
+  file:
+    src: "init.vim"
+    dest: "{{ lookup('env', 'HOME') }}/.config/nvim/init.vim"
+
+- name: Install coc-settings file
+  file:
+    src: "coc-settings.json"
+    dest: "{{ ansible_user_dir }}/.config/nvim"
 
 - name: Create neovim virtualenv
   shell: virtualenv -p `which python` "{{ ansible_user_dir }}/.virtualenvs/neovim"
