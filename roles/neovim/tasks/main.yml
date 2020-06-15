@@ -14,18 +14,13 @@
 
 - name: Clean neovim directory
   file:
-    src: "{{ lookup('env', 'HOME') }}/.config/nvim"
+    path: "{{ lookup('env', 'HOME') }}/.config/nvim"
     state: absent
   when: cleanup | default(false) | bool
 
-- name: Install neovim config file
-  file:
-    src: "init.vim"
-    dest: "{{ lookup('env', 'HOME') }}/.config/nvim/init.vim"
-
-- name: Install coc-settings file
-  file:
-    src: "coc-settings.json"
+- name: Clone nvim repo
+  git:
+    repo: git@github.com:arxcruz/nvim.git
     dest: "{{ ansible_user_dir }}/.config/nvim"
 
 - name: Create neovim virtualenv
