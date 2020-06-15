@@ -5,7 +5,6 @@
     state: present
   with_items:
     - "{{ system_packages }}"
-
   become: true
 
 - name: Install python3 alternatives
@@ -15,6 +14,16 @@
 - name: Load tilix config to dconf
   shell: dconf load /com/gexperts/Tilix/ < "{{ role_path }}/files/tilix.conf"
   when: is_graphical | default(true)
+
+- name: Ensure .local/share/fonts directory exists
+  file:
+    path: "{{ ansible_user_dir }}/.local/share/fonts"
+    state: directory
+
+- name: Install Hack Nerd Font
+  get_url:
+    url: 'https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/Hack/Regular/complete/Hack%20Regular%20Nerd%20Font%20Complete.ttf'
+    dest: "{{ ansible_user_dir }}/.local/share/fonts/Hack.ttf"
 
 - block:
   - name: Install XHC workaround for Razer Blade
