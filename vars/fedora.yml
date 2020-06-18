@@ -1,5 +1,20 @@
 ---
-system_packages:
+server_system_packages:
+  - autojump
+  - autojump-zsh
+  - gcc
+  - git
+  - git-review
+  - nodejs
+  - python3-heatclient
+  - python3-openstackclient
+  - python3-virtualenv
+  - python3-virtualenvwrapper
+  - tmate
+  - tmux-powerline
+  - util-linux-user
+
+desktop_system_packages:
   - autojump
   - autojump-zsh
   - gcc
@@ -17,5 +32,12 @@ system_packages:
   - tmate
   - tmux-powerline
   - util-linux-user
+
+system_packages: >-
+  {% if is_server | default(false) | bool -%}
+  {{ server_system_packages }}
+  {%- else -%}
+  {{ desktop_system_packages }}
+  {%- endif -%}
 
 alternatives: "alternatives"
