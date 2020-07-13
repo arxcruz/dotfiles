@@ -16,7 +16,7 @@
 - name: Install powerline config.json
   copy:
     src: config.json
-    dest: "{{ lookup('env','HOME') }}/.config/powerline"
+    dest: "{{ lookup('env','HOME') }}/.config/powerline/config.json"
 
 - name: Install powerline theme files
   copy:

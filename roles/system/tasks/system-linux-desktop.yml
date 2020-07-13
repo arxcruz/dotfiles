@@ -1,6 +1,8 @@
 ---
 - name: Load tilix config to dconf
-  shell: dconf load /com/gexperts/Tilix/ < "{{ role_path }}/files/tilix.conf"- name: Ensure .local/share/fonts directory exists
+  shell: dconf load /com/gexperts/Tilix/ < "{{ role_path }}/files/tilix.conf"
+
+- name: Ensure .local/share/fonts directory exists
   file:
     path: "{{ ansible_user_dir }}/.local/share/fonts"
     state: directory
