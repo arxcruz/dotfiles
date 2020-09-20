@@ -11,13 +11,18 @@
 - name: Add homebrew cask for fonts
   shell: brew tap homebrew/cask-fonts
 
+- name: Install SVN (required to install some fonts)
+  package:
+    name: svn
+    state: present
+
 - name: Install fonts
   homebrew_cask: name={{ item }} state=present
   with_items:
     - font-droid-sans-mono-for-powerline
-    - font-droidsansmono-nerd-font
-    - font-droidsansmono-nerd-font-mono
+    - font-droid-sans-mono-nerd-font
     - font-hack-nerd-font
+  ignore_errors: true
 
 - name: Install virtualenvwrapper
   pip:
@@ -25,27 +30,12 @@
     executable: pip3
   become: true
 
-- name: Install python
+- name: Install packages
   package: name={{ item }} state=present
   with_items:
     - python
-
-- name: Install coreutils
-  package:
-    name: coreutils
-    state: present
-
-- name: Install autojump
-  package:
-    name: autojump
-    state: present
-
-- name: Install stow
-  package:
-    name: stow
-    state: present
-
-- name: Install tmate
-  package:
-    name: tmate
-    state: present
+    - coreutils
+    - autojump
+    - stow
+    - tmate
+    - npm

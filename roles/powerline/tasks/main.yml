@@ -13,6 +13,15 @@
   become: true
   when: ansible_system == 'Linux'
 
+- name: Ensure powerline config directory exists
+  file:
+    path: "{{ item }}"
+    state: directory
+  with_items:
+    - "{{ lookup('env', 'HOME') }}/.config/powerline"
+    - "{{ lookup('env', 'HOME') }}/.config/powerline/themes"
+    - "{{ lookup('env', 'HOME') }}/.config/powerline/themes/tmux"
+
 - name: Install powerline config.json
   copy:
     src: config.json
