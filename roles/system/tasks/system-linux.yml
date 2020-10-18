@@ -13,3 +13,6 @@
 
 - include_tasks: system-linux-desktop.yml
   when: not is_server | bool
+
+- include_tasks: system-linux-server.yml
+  when: is_server | bool
