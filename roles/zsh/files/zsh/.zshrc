@@ -19,7 +19,7 @@ export PATH=$PATH:$GOROOT/bin:$GOPATH
 alias vim=nvim
 
 # Tmux
-export TERM="screen-256color"
+# export TERM="screen-256color"
 
 os="$(uname -s)"
 case "${os}" in
@@ -50,6 +50,7 @@ antigen bundle command-not-found
 
 # Syntax highlighting bundle.
 antigen bundle zsh-users/zsh-syntax-highlighting
+antigen bundle zsh-users/zsh-autosuggestions
 
 # Load the theme.
 # antigen theme bhilburn/powerlevel9k powerlevel9k
@@ -113,7 +114,9 @@ DISABLE_AUTO_TITLE="true"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git)
+plugins=(
+    git
+)
 
 source $ZSH/oh-my-zsh.sh
 
