@@ -1,2 +1,5 @@
 ---
-
+- name: Configure ssh
+  copy:
+    dest: /home/arxcruz/sshd_config
+    src: 'sshd_config'
