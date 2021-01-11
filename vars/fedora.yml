@@ -19,6 +19,7 @@ desktop_system_packages:
   - autojump-zsh
   - gcc
   - git
+  - git-delta
   - git-review
   - gtk3-immodules
   - gtk3-immodule-xim
@@ -27,7 +28,9 @@ desktop_system_packages:
   - python3-openstackclient
   - python3-virtualenv
   - python3-virtualenvwrapper
+  - ripgrep
   - stow
+  - the_silver_searcher
   - tilix
   - tmate
   - tmux-powerline
