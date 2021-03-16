@@ -11,9 +11,9 @@ fi
 export PATH=$PATH:$HOME/.local/bin
 
 # Golang
-export GOROOT=$HOME/go
-export GOPATH=$GOROOT/bin
-export PATH=$PATH:$GOROOT/bin:$GOPATH
+# export GOROOT=$HOME/go
+# export GOPATH=$GOROOT/bin
+# export PATH=$PATH:$GOROOT/bin:$GOPATH
 
 # Neovim
 alias vim=nvim
