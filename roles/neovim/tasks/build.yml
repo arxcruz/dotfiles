@@ -1,0 +1,35 @@
+---
+- name: Install required packages
+  package:
+    name:
+      - ninja-build
+      - libtool
+      - autoconf
+      - automake
+      - cmake
+      - gcc
+      - gcc-c++
+      - make
+      - pkgconfig
+      - unzip
+      - patch
+      - gettext
+    state: latest
+  become: true
+
+- name: Downloading neovim from git
+  git:
+    repo: "https://github.com/neovim/neovim.git"
+    dest: "{{ ansible_user_dir }}/repos/github.com/neovim"
+    force: yes
+
+- name: Run make
+  command: make CMAKE_BUILD_TYPE=RelWithDebInfo
+  args:
+    chdir: "{{ ansible_user_dir }}/repos/github.com/neovim"
+
+- name: Install neovim
+  command: make install
+  args:
+    chdir: "{{ ansible_user_dir }}/repos/github.com/neovim"
+  become: true
