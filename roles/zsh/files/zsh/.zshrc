@@ -169,3 +169,4 @@ source ~/.p10k.zsh
 alias authkey='oathtool --hotp $(cat ~/.oath/key) -c $([ ! -f ~/.oath/counter ] && echo -n 0 > ~/.oath/counter || echo -n $(($(cat ~/.oath/counter)+1)) > ~/.oath/counter; cat ~/.oath/counter)'
 alias pinauth='[ ! -r ~/.oath/pin ] && echo "No PIN stored." || echo "$(cat ~/.oath/pin)$(authkey)"'
 alias tb='SHELL=zsh toolbox enter -c arxcruz'
+alias g13='pushd ~/projetos/arxcruz/g13/build ; ./g13d --config hots.bind'
