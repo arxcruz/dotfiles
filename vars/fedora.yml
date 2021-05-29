@@ -2,6 +2,7 @@
 server_system_packages:
   - autojump
   - autojump-zsh
+  - fzf
   - gcc
   - git
   - git-review
@@ -10,6 +11,7 @@ server_system_packages:
   - python3-openstackclient
   - python3-virtualenv
   - python3-virtualenvwrapper
+  - ripgrep
   - tmate
   - tmux-powerline
   - util-linux-user
@@ -17,6 +19,7 @@ server_system_packages:
 desktop_system_packages:
   - autojump
   - autojump-zsh
+  - fzf
   - gcc
   - git
   - git-delta
