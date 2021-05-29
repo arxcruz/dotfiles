@@ -5,4 +5,4 @@
 
 - include_tasks: install.yml
   when:
-    build_neovim != true
+    build_neovim | bool != true
