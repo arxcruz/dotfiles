@@ -1,0 +1,44 @@
+---
+- name: Install required packages
+  package:
+    name:
+      - gmock-devel
+      - log4cpp
+      - log4cpp-devel
+      - libevdev-devel
+      - libusb-devel
+  become: true
+
+- name: Download g13d from git
+  git:
+    repo: "https://github.com/khampf/g13.git"
+    dest: "{{ ansible_user_dir }}/repos/github.com/khampf/g13"
+    force: yes
+
+- name: Run cmake build
+  command: cmake -B build -S .
+  args:
+    chdir: "{{ ansible_user_dir }}/repos/github.com/khampf/g13"
+
+- name: Run make
+  command: make
+  args:
+    chdir: "{{ ansible_user_dir }}/repos/github.com/khampf/g13/build"
+
+- name: Copy 91-g13.rules
+  copy:
+    src: 91-g13.rules
+    dest: /usr/lib/udev/rules.d/91-g13.rules
+  become: true
+
+- name: Copy hots.bind
+  copy:
+    src: hots.bind
+    dest: "{{ ansible_user_dir }}/repos/github.com/khampf/g13/build"
+
+- name: Add arxcruz to input group
+  user:
+    name: arxcruz
+    groups: input
+    append: true
+  become: true
