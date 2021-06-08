@@ -176,7 +176,7 @@ my_code() {
         selected=$1
     fi
     items=`find ~/projetos -maxdepth 2 -mindepth 1 -type d`
-    items+=`find ~/repos -maxdepth 2 -mindepth 1 -type d`
+    items+=`find ~/repos -maxdepth 3 -mindepth 1 -type d`
     selected=`echo "$items" | fzf`
 
     dirname=`basename $selected`
@@ -189,4 +189,4 @@ my_code() {
     tmux new-session -c $selected -d -s $dirname && tmux switch-client -t $dirname || tmux new -c $selected -A -s $dirname
 }
 
-alias mycode=my_code
+alias mc=my_code
