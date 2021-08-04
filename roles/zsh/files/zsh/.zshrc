@@ -177,7 +177,7 @@ my_code() {
     fi
     items=`find ~/projetos -maxdepth 2 -mindepth 1 -type d`
     items+=`find ~/repos -maxdepth 3 -mindepth 1 -type d`
-    selected=`echo "$items" | fzf`
+    test -z "$selected" && selected=`echo "$items" | fzf`
 
     dirname=`basename $selected`
 
@@ -189,4 +189,16 @@ my_code() {
     tmux new-session -c $selected -d -s $dirname && tmux switch-client -t $dirname || tmux new -c $selected -A -s $dirname
 }
 
+neovim_config() {
+    tmux switch-client -t 'neovim-config'
+    if [[ $? -eq 0 ]]; then
+        exit 0
+    fi
+    tmux new -s neovim-config -d
+    tmux send-keys -t neovim-config 'cd ~/.config/nvim' C-m
+    tmux send-keys -t neovim-config 'vim init.lua' C-m
+    tmux attach -t neovim-config
+}
+
 alias mc=my_code
+alias nv=neovim_config
