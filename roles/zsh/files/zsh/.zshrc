@@ -172,10 +172,12 @@ alias tb='SHELL=zsh toolbox enter -c arxcruz'
 alias g13='pushd ~/repos/github.com/khampf/g13/build ; ./g13d --config hots.bind'
 
 my_code() {
+    unset selected
     if [[ $# -eq 1 ]]; then
         selected=$1
     fi
     items=`find ~/projetos -maxdepth 2 -mindepth 1 -type d`
+    items+="\n"
     items+=`find ~/repos -maxdepth 3 -mindepth 1 -type d`
     test -z "$selected" && selected=`echo "$items" | fzf`
 
