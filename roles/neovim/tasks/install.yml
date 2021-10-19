@@ -24,7 +24,7 @@
     dest: "{{ ansible_user_dir }}/.config/nvim"
 
 - name: Create neovim virtualenv
-  shell: virtualenv -p `which python` "{{ ansible_user_dir }}/.virtualenvs/neovim"
+  shell: virtualenv -p `which python3` "{{ ansible_user_dir }}/.virtualenvs/neovim"
 
 - name: Setup neovim python bindigns
   pip:
