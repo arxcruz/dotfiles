@@ -153,10 +153,11 @@ if [ "${os}" '==' "Darwin" ]; then
     # Virtualenv wrapper
     export WORKON_HOME=$HOME/.virtualenvs
     export PROJECT_HOME=$HOME/Documents/Projects/
-    source /usr/local/bin/virtualenvwrapper.sh
+    export VIRTUALENVWRAPPER_PYTHON=/opt/homebrew/bin/python3
+    source virtualenvwrapper.sh
 
     # Autojump
-    source /usr/local/etc/profile.d/autojump.sh
+    [ -f /opt/homebrew/etc/profile.d/autojump.sh ] && . /opt/homebrew/etc/profile.d/autojump.sh
 
 else
     source /usr/share/autojump/autojump.zsh
