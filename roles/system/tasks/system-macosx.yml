@@ -1,7 +1,7 @@
 ---
 - name: Check if homebrew is already installed
   stat:
-    path: /usr/local/bin/brew
+    path: /opt/homebrew/bin/brew
   register: homebrew
 
 - name: Installing homebrew
