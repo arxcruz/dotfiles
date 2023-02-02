@@ -17,4 +17,7 @@ roles/weechat/files/weechat/.weechat/exec.conf
 roles/weechat/files/weechat/.weechat/relay.conf
 roles/weechat/files/weechat/.weechat/exec.conf
 roles/weechat/files/weechat/.weechat/spell.conf
+roles/weechat/files/weechat/.weechat/fset.conf
+roles/weechat/files/weechat/.weechat/logger.conf
+roles/weechat/files/weechat/.weechat/script.conf
 run.retry
