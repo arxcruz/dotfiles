@@ -8,7 +8,7 @@ fi
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 # Path to jhbuild
-export PATH=$PATH:$HOME/.local/bin
+export PATH=$PATH:$HOME/.local/bin:$HOME/bin
 
 # Golang
 # export GOROOT=$HOME/go
@@ -43,9 +43,7 @@ antigen use oh-my-zsh
 
 # Bundles from the default repo (robbyrussell's oh-my-zsh).
 antigen bundle git
-antigen bundle heroku
 antigen bundle pip
-antigen bundle lein
 antigen bundle command-not-found
 
 # Syntax highlighting bundle.
@@ -54,7 +52,6 @@ antigen bundle zsh-users/zsh-autosuggestions
 
 # Load the theme.
 antigen theme romkatv/powerlevel10k
-antigen theme https://github.com/iam4x/zsh-iterm-touchbar
 #
 # Tell Antigen that you're done.
 antigen apply
