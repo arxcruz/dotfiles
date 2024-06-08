@@ -4,6 +4,8 @@
     path: "{{ lookup('env', 'HOME') }}/.config"
     state: directory
 
+- include_tasks: system-general.yml
+
 - include_tasks: system-macosx.yml
   when:
     ansible_system == 'Darwin'
