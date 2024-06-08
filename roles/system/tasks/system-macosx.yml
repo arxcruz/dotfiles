@@ -8,9 +8,6 @@
   script: install-homebrew.sh
   when: not homebrew.stat.exists
 
-- name: Add homebrew cask for fonts
-  shell: brew tap homebrew/cask-fonts
-
 - name: Install SVN (required to install some fonts)
   package:
     name: svn
@@ -23,12 +20,6 @@
     - font-droid-sans-mono-nerd-font
     - font-hack-nerd-font
   ignore_errors: true
-
-- name: Install virtualenvwrapper
-  pip:
-    name: virtualenvwrapper
-    executable: pip3
-  become: true
 
 - name: Install packages
   package: name={{ item }} state=present
@@ -44,3 +35,4 @@
     - python
     - stow
     - tmate
+    - virtualenvwrapper

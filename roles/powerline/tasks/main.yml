@@ -4,6 +4,8 @@
     name: ['powerline-status', 'psutil']
     executable: pip3
   become: true
+  # Managed computer...
+  ignore_errors: true
   when: ansible_system == 'Darwin'
 
 - name: Install powerline
