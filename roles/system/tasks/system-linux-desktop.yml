@@ -9,7 +9,7 @@
 
 - name: Install Hack Nerd Font
   get_url:
-    url: 'https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/Hack/Regular/complete/Hack%20Regular%20Nerd%20Font%20Complete.ttf'
+    url: 'https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/Hack/Regular/HackNerdFont-Regular.ttf'
     dest: "{{ ansible_user_dir }}/.local/share/fonts/Hack.ttf"
 
 - block:
