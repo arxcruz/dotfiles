@@ -145,36 +145,15 @@ if [ "${os}" '==' "Darwin" ]; then
     export VIRTUALENVWRAPPER_PYTHON=/opt/homebrew/bin/python3
     source virtualenvwrapper.sh
 
-    # Autojump
-    [ -f /opt/homebrew/etc/profile.d/autojump.sh ] && . /opt/homebrew/etc/profile.d/autojump.sh
+    # fzf
+    eval "$(fzf --zsh)"
 
 else
-    source /usr/share/autojump/autojump.zsh
+    source /usr/share/fzf/shell/key-bindings.zsh
 fi
 
 # Load powerlevel10k
 source ~/.p10k.zsh
-
-# Aliases
-my_code() {
-    unset selected
-    if [[ $# -eq 1 ]]; then
-        selected=$1
-    fi
-    items=`find ~/projetos -maxdepth 2 -mindepth 1 -type d`
-    items+="\n"
-    items+=`find ~/repos -maxdepth 3 -mindepth 1 -type d`
-    test -z "$selected" && selected=`echo "$items" | fzf`
-
-    dirname=`basename $selected`
-
-    tmux switch-client -t $dirname
-    if [[ $? -eq 0 ]]; then
-        exit 0
-    fi
-
-    tmux new-session -c $selected -d -s $dirname && tmux switch-client -t $dirname || tmux new -c $selected -A -s $dirname
-}
 
 neovim_config() {
     tmux switch-client -t 'neovim-config'
@@ -187,5 +166,43 @@ neovim_config() {
     tmux attach -t neovim-config
 }
 
-alias mc=my_code
 alias nv=neovim_config
+
+# FZF
+export FZF_DEFAULT_COMMAND="fd --hidden --strip-cwd-prefix --exclude .git"
+export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+export FZF_ALT_C_COMMAND="fd --type=d --hidden --strip-cwd-prefix --exclude .git"
+
+_fzf_compgen_path() {
+    fd --hidden --exclude .git . "$1"
+}
+
+_fzf_compgen_dir() {
+    fd --type=d --hidden --exclude .git . "$1"
+}
+
+source $HOME/.config/fzf-git/fzf-git.sh
+
+export FZF_CTRL_T_OPTS="--preview 'bat -n --color=always --line-range :500 {}'"
+export FZF_ALT_C_OPTS="--preview 'eza --tree --color=always {} | head -200'"
+
+_fzf_comprun() {
+    local command=$1
+    shift
+
+    case "$command" in
+        cd)           fzf --preview 'eza --tree --color=always {} | head -200' "$@" ;;
+        export|unset) fzf --preview "eval 'echo \$' {}" "$@" ;;
+        ssh)          fzf --preview 'dig {}' "$@" ;;
+        *)            fzf --preview "--preview 'bat -n --color=always --line-range :500 {}'" "$@" ;;
+    esac
+}
+# Bat
+export BAT_THEME="Coldark-Dark"
+
+# Eza
+alias ls="eza --long --color=always --git --icons=always --no-time"
+
+# Zoxide
+eval "$(zoxide init zsh)"
+alias cd="z"
