@@ -1,24 +1,19 @@
 ---
 server_system_packages:
-  - autojump
-  - autojump-zsh
   - fzf
   - gcc
   - git
   - git-review
   - nodejs
-  - python3-heatclient
-  - python3-openstackclient
-  - python3-virtualenv
-  - python3-virtualenvwrapper
   - ripgrep
   - tmate
   - tmux-powerline
   - util-linux-user
 
 desktop_system_packages:
-  - autojump
-  - autojump-zsh
+  - bat
+  - eza
+  - fd-find
   - fzf
   - gcc
   - git
@@ -27,10 +22,6 @@ desktop_system_packages:
   - gtk3-immodules
   - gtk3-immodule-xim
   - nodejs
-  - python3-heatclient
-  - python3-openstackclient
-  - python3-virtualenv
-  - python3-virtualenvwrapper
   - ripgrep
   - stow
   - the_silver_searcher
@@ -38,6 +29,7 @@ desktop_system_packages:
   - tmate
   - tmux-powerline
   - util-linux-user
+  - zoxide
 
 system_packages: >-
   {% if is_server | default(false) | bool -%}

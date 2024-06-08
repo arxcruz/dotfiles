@@ -1,6 +1,5 @@
 ---
 system_packages:
-  - autojump
   - gcc
   - git
   - git-review

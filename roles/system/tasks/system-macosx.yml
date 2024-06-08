@@ -33,9 +33,14 @@
 - name: Install packages
   package: name={{ item }} state=present
   with_items:
-    - python
+    - bat
     - coreutils
-    - autojump
+    - eza
+    - fd
+    - fzf
+    - git-delta
+    - git-review
+    - npm
+    - python
     - stow
     - tmate
-    - npm
