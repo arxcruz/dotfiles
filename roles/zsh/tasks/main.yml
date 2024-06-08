@@ -5,7 +5,6 @@
     state: present
   with_items:
     - zsh
-    - autojump-zsh
     - zsh-syntax-highlighting
   become: true
   when: ansible_system == 'Linux'
@@ -37,11 +36,6 @@
 
 - name: Change default shell to zsh
   shell: chsh -s /bin/zsh {{ ansible_user_id }}
-  when: ansible_system == 'Linux'
+  when:
+    - ansible_system == 'Linux'
   become: true
-
-  #- name: Change default shell to zsh
-  #  shell: chsh -s /usr/local/bin/zsh
-  #  when: ansible_system == 'Darwin'
-
-
