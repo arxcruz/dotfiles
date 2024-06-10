@@ -9,25 +9,17 @@
   become: true
   when: ansible_system == 'Linux'
 
-  #- name: Install zsh files
-  #  package:
-  #    name: {{ item }}
-  #    state: present
-  #  with_items:
-  #    - zsh
-  #    - zsh-completions
-  #  when: ansible_system == 'Darwin'
+- name: install oh-my-posh
+  package:
+    name: "jandedobbeleer/oh-my-posh/oh-my-posh"
+    state: present
+  when: ansible_system == 'Darwin'
 
-- name: Check if oh-my-zsh is already installed
-  stat:
-    path: "{{ ansible_user_dir }}/.oh-my-zsh"
-  register: ohmyzsh
-
-- name: Cloning oh-my-zsh
+- name: Download antidote from repository
   git:
-    repo: https://github.com/robbyrussell/oh-my-zsh
-    dest: "{{ ansible_user_dir }}/.oh-my-zsh"
-  when: not ohmyzsh.stat.exists
+    repo: "https://github.com/mattmc3/antidote.git"
+    dest: "{{ ansible_user_dir }}/.antidote"
+    force: yes
 
 - name: Install zsh files using stow
   shell: stow -t {{ ansible_user_dir }} -S zsh

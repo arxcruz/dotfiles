@@ -1,0 +1,20 @@
+# OMZ has a lot of dependancies on its lib directory.
+# Load everything in path:lib before loading any plugins
+ohmyzsh/ohmyzsh path:lib
+
+# Now, many plugins or themes should work fine
+ohmyzsh/ohmyzsh path:plugins/colored-man-pages
+ohmyzsh/ohmyzsh path:plugins/git
+ohmyzsh/ohmyzsh path:plugins/extract
+# ohmyzsh/ohmyzsh path:plugins/magic-enter
+ohmyzsh/ohmyzsh path:plugins/fancy-ctrl-z
+# ohmyzsh/ohmyzsh path:themes/robbyrussell.zsh-theme
+
+zsh-users/zsh-syntax-highlighting
+zsh-users/zsh-autosuggestions
+
+belak/zsh-utils path:editor
+belak/zsh-utils path:history
+belak/zsh-utils path:prompt
+belak/zsh-utils path:utility
+belak/zsh-utils path:completion
