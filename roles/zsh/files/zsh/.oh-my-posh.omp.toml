@@ -95,12 +95,13 @@ console_title_template = '{{ .Shell }} in {{ .Folder }}'
     style = 'plain'
     foreground = 'p:yellow'
     background = 'transparent'
-    template = ' '
+    template = '{{ if .Error }}{{ .Error }}{{ else }}{{ if .Venv }} {{ .Venv }} {{ end }}{{ .Full }}{{ end }}'
 
     [blocks.segments.properties]
-      display_mode = 'files'
+      display_mode = 'context'
       fetch_version = false
-      fetch_virtual_env = false
+      fetch_virtual_env = true
+      home_enabled = true
 
   [[blocks.segments]]
     type = 'shell'

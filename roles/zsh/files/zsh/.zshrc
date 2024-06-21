@@ -24,7 +24,7 @@ source "$HOME/.antidote/antidote.zsh"
 antidote load
 
 # Oh-my-posh
-eval "$(oh-my-posh init zsh --config .oh-my-posh.omp.toml)"
+eval "$(oh-my-posh init zsh --config $HOME/.oh-my-posh.omp.toml)"
 
 # Virtualenv and fzf
 if [ "${os}" '==' "Darwin" ]; then
