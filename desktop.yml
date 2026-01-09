@@ -4,9 +4,9 @@
   vars_files:
   - "{{ lookup('first_found', [ 'vars/{{ ansible_distribution|lower }}.yml', 'vars/default.yml']) }}"
   vars:
-    - is_server: false
-    - razer_blade: false
-    - build_neovim: false
+    is_server: false
+    razer_blade: false
+    build_neovim: false
 
 
   roles:
