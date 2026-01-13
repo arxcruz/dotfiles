@@ -7,10 +7,6 @@
     - "{{ system_packages }}"
   become: true
 
-- name: Install python3 alternatives
-  shell: "{{ alternatives }} --install /usr/bin/python python /usr/bin/python3 2"
-  become: true
-
 - include_tasks: system-linux-desktop.yml
   when: not is_server | bool
 
