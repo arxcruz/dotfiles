@@ -1,4 +1,5 @@
 export PATH=$PATH:$HOME/.local/bin:$HOME/bin
+export PATH=$PATH:~/.npm-global/bin
 
 # Check OS
 os="$(uname -s)"
@@ -26,18 +27,19 @@ antidote load
 # Oh-my-posh
 eval "$(oh-my-posh init zsh --config $HOME/.oh-my-posh.omp.toml)"
 
-# Virtualenv and fzf
 if [ "${os}" '==' "Darwin" ]; then
+    export VIRTUALENVWRAPPER_PYTHON=/opt/homebrew/bin/python3
+fi
+# Virtualenv and fzf
+if [ "${os}" '==' "Darwin" ] || [ "${os}" '==' "Linux" ]; then
     # Virtualenv wrapper
     export WORKON_HOME=$HOME/.virtualenvs
     export PROJECT_HOME=$HOME/Documents/Projects/
-    export VIRTUALENVWRAPPER_PYTHON=/opt/homebrew/bin/python3
     source virtualenvwrapper.sh
 
     # fzf
     eval "$(fzf --zsh)"
-
-else
+else       
     # Fedora doesn't have support to fzf --zsh yet
     source /usr/share/fzf/shell/key-bindings.zsh
 fi
