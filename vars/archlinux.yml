@@ -1,0 +1,36 @@
+---
+server_system_packages:
+  - fzf
+  - gcc
+  - git
+  - nodejs
+  - ripgrep
+  - tmate
+  - tmux-powerline
+
+desktop_system_packages:
+  - bat
+  - eza
+  - fd
+  - fzf
+  - gcc
+  - git
+  - git-delta
+  - nodejs
+  - ripgrep
+  - stow
+  - the_silver_searcher
+  - tmate
+  - powerline
+  - python-virtualenv
+  - python-virtualenvwrapper
+  - zoxide
+
+system_packages: >-
+  {% if is_server | default(false) | bool -%}
+  {{ server_system_packages }}
+  {%- else -%}
+  {{ desktop_system_packages }}
+  {%- endif -%}
+
+alternatives: "alternatives"
