@@ -5,7 +5,7 @@
     dest: "{{ ansible_user_dir }}/.config/fzf-git"
     force: yes
   
-- name: Install gitconfig files using stow
-  shell: stow -t {{ ansible_user_dir }} -S gitconfig
-  args:
-    chdir: "{{ role_path }}/files"
+- name: Install gitconfig
+  ansible.builtin.copy:
+    src: gitconfig
+    dest: "{{ ansible_user_dir }}/.gitconfig"
