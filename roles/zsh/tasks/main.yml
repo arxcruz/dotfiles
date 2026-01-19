@@ -21,10 +21,22 @@
     dest: "{{ ansible_user_dir }}/.antidote"
     force: yes
 
-- name: Install zsh files using stow
-  shell: stow -t {{ ansible_user_dir }} -S zsh
-  args:
-    chdir: "{{ role_path }}/files"
+- name: Deploy .zshrc from template
+  template:
+    src: .zshrc.j2
+    dest: "{{ ansible_user_dir }}/.zshrc"
+    mode: '0644'
+
+- name: Deploy other zsh config files
+  copy:
+    src: "zsh/{{ item }}"
+    dest: "{{ ansible_user_dir }}/{{ item }}"
+    mode: '0644'
+  loop:
+    - .oh-my-posh.omp.toml
+    - .p10k.zsh
+    - .zsh_plugins.txt
+    - .zshenv
 
 - name: Change default shell to zsh
   shell: chsh -s /bin/zsh {{ ansible_user_id }}

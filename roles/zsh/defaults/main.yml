@@ -1,0 +1,21 @@
+---
+# Defaults for zsh role
+# These can be overridden in your playbook or inventory
+
+# Path configurations
+zsh_local_bin_paths:
+  - "$HOME/.local/bin"
+  - "$HOME/bin"
+  - "~/.npm-global/bin"
+
+# Project configuration
+zsh_workon_home: "$HOME/.virtualenvs"
+zsh_project_home: "$HOME/Documents/Projects/"
+
+# Theme configuration
+zsh_bat_theme: "Coldark-Dark"
+
+# Claude configuration (sensitive values are in vars/vault.yml)
+zsh_claude_use_vertex: "{{ vault_zsh_claude_use_vertex | default(0) }}"
+zsh_cloud_ml_region: "{{ vault_zsh_cloud_ml_region | default('') }}"
+zsh_anthropic_vertex_project_id: "{{ vault_zsh_anthropic_vertex_project_id | default('') }}"
