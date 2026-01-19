@@ -2,7 +2,11 @@ set -sg escape-time 5
 
 set-option -s set-clipboard off
 set-option -g focus-events on
+{% if ansible_distribution == "Darwin" %}
+set -s copy-command 'pbcopy'
+{% elif ansible_os_family == "Archlinux" or ansible_os_family == "RedHat" or ansible_os_family == "Debian" %}
 set -s copy-command 'xsel -i'
+{% endif %}
 bind -Tcopy-mode-vi C-j               send -X copy-pipe-and-cancel 'xsel -i'
 bind -Tcopy-mode-vi Enter             send -X copy-pipe-and-cancel 'xsel -i'
 bind -Tcopy-mode-vi MouseDragEnd1Pane send -X copy-pipe-and-cancel 'xsel -i'
@@ -10,8 +14,15 @@ bind -Tcopy-mode-vi MouseDragEnd1Pane send -X copy-pipe-and-cancel 'xsel -i'
 # set-option -g default-terminal "screen-256color"
 set -ag terminal-overrides ',*:cud1=\E[1B'
 run-shell "powerline-daemon -q"
-if-shell "uname | grep -q Darwin" "source '/opt/homebrew/lib/python3.10/site-packages/powerline/bindings/tmux/powerline.conf'" "source '/usr/share/tmux/powerline.conf'"
-if-shell "uname | grep -q Linux" "source '/usr/lib/python3.14/site-packages/powerline/bindings/tmux/powerline.conf'"
+{% if ansible_distribution == "Darwin" %}
+source "/opt/homebrew/lib/python3.10/site-packages/powerline/bindings/tmux/powerline.conf"
+{% elif ansible_distribution == "Archlinux" %}
+source "/usr/lib/python3.14/site-packages/powerline/bindings/tmux/powerline.conf"
+{% elif ansible_distribution == "Fedora" %}
+source "/usr/lib/python3.10/site-packages/powerline/bindings/tmux/powerline.conf"
+{% else %}
+source "/usr/share/tmux/powerline.conf"
+{% endif %}
 
 # Set mouse on or off
 # <prefix> M - Turn it off

@@ -12,7 +12,8 @@
   become: true
   when: ansible_system == 'Linux'
 
-- name: Install tmux files using stow
-  shell: stow -t {{ ansible_user_dir }} -S tmux
-  args:
-    chdir: "{{ role_path }}/files"
+- name: Deploy .tmux.conf from template
+  template:
+    src: tmux.conf.j2
+    dest: "{{ ansible_user_dir }}/.tmux.conf"
+    mode: '0644'
