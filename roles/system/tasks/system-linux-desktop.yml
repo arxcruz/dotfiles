@@ -12,3 +12,17 @@
     url: 'https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/Hack/Regular/HackNerdFont-Regular.ttf'
     dest: "{{ ansible_user_dir }}/.local/share/fonts/Hack.ttf"
 
+- name: Ensure .npm-global directory exists
+  file:
+    path: "{{ ansible_user_dir }}/.npm-global"
+    state: directory
+
+- name: Set npm global prefix
+  command: "npm config set prefix {{ ansible_user_dir }}/.npm-global"
+  changed_when: false
+
+- name: Install SmartThings CLI
+  npm:
+    name: "@smartthings/cli"
+    global: true
+

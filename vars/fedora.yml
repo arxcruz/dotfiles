@@ -5,6 +5,7 @@ server_system_packages:
   - git
   - git-review
   - nodejs
+  - npm
   - ripgrep
   - tmate
   - tmux-powerline
@@ -22,6 +23,7 @@ desktop_system_packages:
   - gtk3-immodules
   - gtk3-immodule-xim
   - nodejs
+  - npm
   - ripgrep
   - stow
   - the_silver_searcher

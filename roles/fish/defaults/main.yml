@@ -1,0 +1,16 @@
+---
+# Defaults for fish role
+
+# Theme configuration
+fish_bat_theme: "Coldark-Dark"
+
+# Claude configuration
+fish_claude_use_vertex: "{{ vault_zsh_claude_use_vertex | default(0) }}"
+fish_cloud_ml_region: "{{ vault_zsh_cloud_ml_region | default('') }}"
+fish_anthropic_vertex_project_id: "{{ vault_zsh_anthropic_vertex_project_id | default('') }}"
+
+# Aliases
+fish_aliases:
+  - { name: "cd", value: "z" }
+  - { name: "vim", value: "nvim" }
+  - { name: "ls", value: "eza --long --color=always --git --icons=always --no-time" }

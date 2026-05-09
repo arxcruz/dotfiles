@@ -1,0 +1,20 @@
+---
+- name: Ensure ufw is installed
+  package:
+    name: ufw
+    state: present
+  become: true
+
+- name: Allow specified ports
+  ufw:
+    rule: allow
+    port: "{{ item.port | string }}"
+    proto: "{{ item.proto }}"
+  loop: "{{ firewall_allowed_ports }}"
+  become: true
+
+- name: Enable ufw
+  ufw:
+    state: enabled
+    policy: deny
+  become: true

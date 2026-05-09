@@ -1,0 +1,12 @@
+---
+firewall_allowed_ports:
+  # Synergy
+  - { port: 24800, proto: tcp }
+
+  # Heroes of the Storm (Battle.net & Game Client)
+  - { port: 1119, proto: tcp }
+  - { port: 1119, proto: udp }
+  - { port: 3724, proto: tcp }
+  - { port: 3724, proto: udp }
+  - { port: 6113, proto: tcp }
+  - { port: 6113, proto: udp }

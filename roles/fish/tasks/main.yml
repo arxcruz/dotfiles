@@ -1,0 +1,47 @@
+---
+- name: Install fish shell
+  package:
+    name: fish
+    state: present
+  become: true
+  when: ansible_system == 'Linux'
+
+- name: Install fish shell (Darwin)
+  homebrew:
+    name: fish
+    state: present
+  when: ansible_system == 'Darwin'
+
+- name: install oh-my-posh (Darwin)
+  homebrew:
+    name: "jandedobbeleer/oh-my-posh/oh-my-posh"
+    state: present
+  when: ansible_system == 'Darwin'
+
+- name: Create fish config directory
+  file:
+    path: "{{ ansible_user_dir }}/.config/fish"
+    state: directory
+    mode: '0755'
+
+- name: Deploy config.fish from template
+  template:
+    src: config.fish.j2
+    dest: "{{ ansible_user_dir }}/.config/fish/config.fish"
+    mode: '0644'
+
+- name: Deploy oh-my-posh config file
+  copy:
+    src: ".oh-my-posh.omp.toml"
+    dest: "{{ ansible_user_dir }}/.oh-my-posh.omp.toml"
+    mode: '0644'
+
+- name: Get fish path
+  shell: which fish
+  register: fish_path
+  changed_when: false
+
+- name: Change default shell to fish
+  shell: chsh -s {{ fish_path.stdout }} {{ ansible_user_id }}
+  when: ansible_system == 'Linux'
+  become: true

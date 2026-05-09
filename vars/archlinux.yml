@@ -1,9 +1,11 @@
 ---
+build_neovim: false
 server_system_packages:
   - fzf
   - gcc
   - git
   - nodejs
+  - npm
   - ripgrep
   - tmate
   - tmux-powerline
@@ -17,13 +19,14 @@ desktop_system_packages:
   - git
   - git-delta
   - nodejs
+  - npm
   - ripgrep
   - stow
   - the_silver_searcher
   - tmate
   - powerline
   - python-virtualenv
-  - python-virtualenvwrapper
+#  - python-virtualenvwrapper
   - zoxide
 
 system_packages: >-

@@ -11,6 +11,7 @@
 
   roles:
     - { role: 'system', tags: ['system'] }
+    - { role: 'firewall', tags: ['firewall'] }
     - { role: 'neovim', tags: ['neovim'] }
     - { role: 'powerline', tags: ['powerline'] }
     - { role: 'tmux', tags: ['tmux'] }
