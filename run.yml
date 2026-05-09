@@ -18,3 +18,4 @@
     - { role: 'weechat', tags: ['weechat'] }
     - { role: 'zsh', tags: ['zsh'] }
     - { role: 'fish', tags: ['fish'] }
+    - { role: 'streamdeck', tags: ['streamdeck'] }

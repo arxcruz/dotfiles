@@ -1,0 +1,16 @@
+---
+- name: Ensure local bin directory exists
+  file:
+    path: "{{ ansible_env.HOME }}/.local/bin"
+    state: directory
+    mode: '0755'
+
+- name: Copy streamdeck scripts to local bin
+  copy:
+    src: "{{ item }}"
+    dest: "{{ ansible_env.HOME }}/.local/bin/{{ item }}"
+    mode: '0755'
+  with_items:
+    - samsung_g9_on_off.sh
+    - toggle_monitor.sh
+    - toggle_g8_input.sh

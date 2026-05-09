@@ -16,3 +16,4 @@
     - { role: 'powerline', tags: ['powerline'] }
     - { role: 'tmux', tags: ['tmux'] }
     - { role: 'zsh', tags: ['zsh'] }
+    - { role: 'streamdeck', tags: ['streamdeck'] }
