@@ -1,0 +1,30 @@
+---
+- name: Ensure plugdev group exists
+  group:
+    name: plugdev
+    state: present
+  become: true
+
+- name: Add user to plugdev group
+  user:
+    name: "{{ ansible_user_id }}"
+    groups: plugdev
+    append: true
+  become: true
+
+- name: Copy 50-zsa.rules to udev rules directory
+  copy:
+    src: 50-zsa.rules
+    dest: /etc/udev/rules.d/50-zsa.rules
+    mode: '0644'
+  become: true
+
+- name: Reload udev rules
+  command: udevadm control --reload-rules
+  become: true
+  changed_when: false
+
+- name: Trigger udev rules
+  command: udevadm trigger
+  become: true
+  changed_when: false

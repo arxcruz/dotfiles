@@ -17,3 +17,4 @@
     - { role: 'tmux', tags: ['tmux'] }
     - { role: 'zsh', tags: ['zsh'] }
     - { role: 'streamdeck', tags: ['streamdeck'] }
+    - { role: 'zsa', tags: ['zsa', 'moonlander', 'keyboard'] }
