@@ -11,18 +11,35 @@ bind -Tcopy-mode-vi C-j               send -X copy-pipe-and-cancel 'xsel -i'
 bind -Tcopy-mode-vi Enter             send -X copy-pipe-and-cancel 'xsel -i'
 bind -Tcopy-mode-vi MouseDragEnd1Pane send -X copy-pipe-and-cancel 'xsel -i'
 
-# set-option -g default-terminal "screen-256color"
-set -ag terminal-overrides ',*:cud1=\E[1B'
-run-shell "powerline-daemon -q"
-{% if ansible_distribution == "Darwin" %}
-source "/opt/homebrew/lib/python3.10/site-packages/powerline/bindings/tmux/powerline.conf"
-{% elif ansible_distribution == "Archlinux" %}
-source "/usr/lib/python3.14/site-packages/powerline/bindings/tmux/powerline.conf"
-{% elif ansible_distribution == "Fedora" %}
-source "/usr/lib/python3.10/site-packages/powerline/bindings/tmux/powerline.conf"
-{% else %}
-source "/usr/share/tmux/powerline.conf"
-{% endif %}
+# Terminal & color support
+set -g default-terminal "tmux-256color"
+set -ag terminal-overrides ",xterm-256color:RGB"
+
+# ==========================================
+# Powerline-style Status Bar (Native tmux)
+# No Python / powerline-daemon dependency
+# ==========================================
+set -g status on
+set -g status-interval 2
+set -g status-justify left
+set -g status-style "bg=colour236,fg=colour247"
+
+# Left side: Session name
+set -g status-left-length 50
+set -g status-left "#[fg=colour235,bg=colour252,bold] #S #[fg=colour252,bg=colour236,nobold,nounderscore,noitalics]"
+
+# Right side: Date, Time & Hostname
+set -g status-right-length 150
+set -g status-right "#[fg=colour240,bg=colour236,nobold,nounderscore,noitalics]#[fg=colour250,bg=colour240] %Y-%m-%d  %H:%M #[fg=colour252,bg=colour240,nobold,nounderscore,noitalics]#[fg=colour235,bg=colour252,bold] #h "
+
+# Window status tabs
+set -g window-status-separator ""
+set -g window-status-format "#[fg=colour244,bg=colour236]  #I  #W  "
+set -g window-status-current-format "#[fg=colour236,bg=colour31,nobold,nounderscore,noitalics]#[fg=colour231,bg=colour31,bold] #I  #W #[fg=colour31,bg=colour236,nobold,nounderscore,noitalics]"
+
+# Pane borders
+set -g pane-border-style "fg=colour238"
+set -g pane-active-border-style "fg=colour31"
 
 # Set mouse on or off
 # <prefix> M - Turn it off

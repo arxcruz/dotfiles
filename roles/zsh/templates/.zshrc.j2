@@ -87,3 +87,8 @@ alias ls="eza --long --color=always --git --icons=always --no-time"
 export CLAUDE_CODE_USE_VERTEX={{ zsh_claude_use_vertex }}
 export CLOUD_ML_REGION={{ zsh_cloud_ml_region }}
 export ANTHROPIC_VERTEX_PROJECT_ID={{ zsh_anthropic_vertex_project_id }}
+
+# Auto-start or attach to tmux session
+if [[ -z "$TMUX" ]] && [[ $- == *i* ]] && command -v tmux >/dev/null 2>&1 && [[ -z "$NVIM" ]] && [[ -z "$VIM" ]] && [[ "$TERM_PROGRAM" != "vscode" ]] && [[ "$TERM_PROGRAM" != "antigravity" ]]; then
+    exec tmux new-session -A -s main
+fi

@@ -11,11 +11,11 @@
 
   roles:
     - { role: 'system', tags: ['system'] }
-    - { role: 'firewall', tags: ['firewall'] }
+#    - { role: 'firewall', tags: ['firewall'] }
     - { role: 'neovim', tags: ['neovim'] }
-    - { role: 'powerline', tags: ['powerline'] }
+#    - { role: 'powerline', tags: ['powerline'] }
     - { role: 'tmux', tags: ['tmux'] }
     - { role: 'weechat', tags: ['weechat'] }
-    - { role: 'zsh', tags: ['zsh'] }
+#    - { role: 'zsh', tags: ['zsh'] }
     - { role: 'fish', tags: ['fish'] }
     - { role: 'streamdeck', tags: ['streamdeck'] }
