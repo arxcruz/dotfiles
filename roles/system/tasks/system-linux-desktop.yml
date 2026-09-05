@@ -9,7 +9,8 @@
 
 - name: Install Hack Nerd Font
   get_url:
-    url: 'https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/Hack/Regular/HackNerdFont-Regular.ttf'
+    # url: 'https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/Hack/Regular/HackNerdFont-Regular.ttf'
+    url: 'https://github.com/ryanoasis/nerd-fonts/raw/refs/heads/master/patched-fonts/Hack/HackNerdFont-Regular.ttf'
     dest: "{{ ansible_user_dir }}/.local/share/fonts/Hack.ttf"
 
 - name: Ensure .npm-global directory exists
@@ -25,4 +26,22 @@
   npm:
     name: "@smartthings/cli"
     global: true
+
+- name: Deploy .XCompose for US-intl cedilla support
+  ansible.builtin.copy:
+    src: XCompose
+    dest: "{{ ansible_user_dir }}/.XCompose"
+    mode: '0644'
+
+- name: Ensure .config/environment.d directory exists
+  ansible.builtin.file:
+    path: "{{ ansible_user_dir }}/.config/environment.d"
+    state: directory
+    mode: '0755'
+
+- name: Deploy environment.d cedilla.conf for Wayland session
+  ansible.builtin.copy:
+    src: cedilla.conf
+    dest: "{{ ansible_user_dir }}/.config/environment.d/cedilla.conf"
+    mode: '0644'
 
