@@ -18,11 +18,12 @@ This repository uses Ansible roles to deploy and manage dotfiles. This approach 
 |------|-------------|
 | `system` | System-level configuration and packages |
 | `neovim` | Neovim text editor configuration |
-| `powerline` | Powerline status bar configuration |
 | `tmux` | Terminal multiplexer configuration |
-| `weechat` | IRC client configuration |
 | `zsh` | Zsh shell with modern tools (fzf, zoxide, antidote, oh-my-posh) |
-| `g13` | Logitech G13 configuration |
+| `fish` | Fish shell configuration with oh-my-posh |
+| `firewall` | UFW firewall configuration |
+| `streamdeck` | Stream Deck scripts for monitor management |
+| `zsa` | ZSA keyboard (ErgoDox/Moonlander) udev rules |
 
 ## Prerequisites
 
@@ -56,7 +57,7 @@ ansible-playbook run.yml -i "localhost," --connection=local --ask-become-pass
 
 - `run.yml` - Main playbook that runs all roles
 - `desktop.yml` - Desktop-specific configuration
-- `razer.yml` - Razer-specific configuration
+- `macos.yml` - macOS-specific configuration
 
 ## Using Ansible Vault for Sensitive Data
 

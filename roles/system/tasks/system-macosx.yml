@@ -33,6 +33,5 @@
     - git-review
     - npm
     - python
-    - stow
     - tmate
     - virtualenvwrapper

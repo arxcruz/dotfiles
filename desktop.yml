@@ -11,10 +11,9 @@
 
   roles:
     - { role: 'system', tags: ['system'] }
-    - { role: 'firewall', tags: ['firewall'] }
     - { role: 'neovim', tags: ['neovim'] }
-    - { role: 'powerline', tags: ['powerline'] }
     - { role: 'tmux', tags: ['tmux'] }
     - { role: 'zsh', tags: ['zsh'] }
+    - { role: 'fish', tags: ['fish'] }
     - { role: 'streamdeck', tags: ['streamdeck'] }
     - { role: 'zsa', tags: ['zsa', 'moonlander', 'keyboard'] }

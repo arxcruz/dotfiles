@@ -3,10 +3,7 @@ system_packages:
   - gcc
   - git
   - git-review
-  - python-heatclient
-  - python-openstackclient
   - python-virtualenv
-  - stow
   - tmate
 
 alternatives: "update-alternatives"

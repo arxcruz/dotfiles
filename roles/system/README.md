@@ -29,7 +29,6 @@ The role performs the following tasks:
   - `git-review`
   - `npm`
   - `python`
-  - `stow`
   - `tmate`
   - `virtualenvwrapper`
 

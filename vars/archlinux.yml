@@ -8,7 +8,6 @@ server_system_packages:
   - npm
   - ripgrep
   - tmate
-  - tmux-powerline
 
 desktop_system_packages:
   - bat
@@ -21,10 +20,7 @@ desktop_system_packages:
   - nodejs
   - npm
   - ripgrep
-  - stow
-  - the_silver_searcher
   - tmate
-  - powerline
   - python-virtualenv
 #  - python-virtualenvwrapper
   - zoxide
