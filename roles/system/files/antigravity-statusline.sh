@@ -42,6 +42,7 @@ NUM_COLOR="${FG_BRIGHT_WHITE}${B}"
   read -r BG_TASKS
   read -r MODEL
   read -r COLS
+  read -r TOKENS
 } <<< "$(
   jq -r '
     (.agent_state // "idle"),
@@ -53,7 +54,8 @@ NUM_COLOR="${FG_BRIGHT_WHITE}${B}"
     (if .subagents | type == "array" then (.subagents | length) else 0 end),
     (.task_count // 0),
     (.model.display_name // ""),
-    (.terminal_width // 80)
+    (.terminal_width // 80),
+    (.context_window.total_output_tokens // 0)
   ' 2>/dev/null || printf "idle\n0\n\nfalse\nfalse\n0\n0\n0\n\n80\n"
 )"
 
@@ -129,6 +131,7 @@ for ((i = 0; i < BAR_LEN; i++)); do
 done
 
 # ─── Stats ───────────────────────────────────────────────────────────────────
+TOKENS="${FG_BRIGHT_YELLOW}$(awk -v n="$TOKENS" 'BEGIN { printf "%.1fk\n", n / 1000 }')${R}"
 CTX="${FG_GRAY}ctx ${BAR_COLOR}${BAR} ${NUM_COLOR}${PCT_FMT}%${R}"
 ART_FMT="${FG_GRAY}artifacts ${NUM_COLOR}${ARTIFACTS}${R}"
 SUB_FMT="${FG_GRAY}subagents ${NUM_COLOR}${SUBAGENTS}${R}"
@@ -138,7 +141,7 @@ BG_FMT="${FG_GRAY}tasks ${NUM_COLOR}${BG_TASKS}${R}"
 DOT="${FG_GRAY} · ${R}"
 
 # ─── Output ──────────────────────────────────────────────────────────────────
-LINE1="${S}${M}${V}"
+LINE1="${S}${M}${V} ${TOKENS}"
 LINE2=" ${CTX}${DOT}${ART_FMT}${DOT}${SUB_FMT}${DOT}${BG_FMT}${DOT}${SB}"
 
 if [ "$COLS" -ge 120 ]; then
