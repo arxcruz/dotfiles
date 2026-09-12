@@ -3,17 +3,17 @@
   package:
     name: tmux
     state: present
-  when: ansible_system == 'Darwin'
+  when: ansible_facts.system == 'Darwin'
 
 - name: Install tmux
   package:
     name: tmux
     state: present
   become: true
-  when: ansible_system == 'Linux'
+  when: ansible_facts.system == 'Linux'
 
 - name: Deploy .tmux.conf from template
   template:
     src: tmux.conf.j2
-    dest: "{{ ansible_user_dir }}/.tmux.conf"
+    dest: "{{ ansible_facts.user_dir }}/.tmux.conf"
     mode: '0644'

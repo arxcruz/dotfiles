@@ -1,5 +1,4 @@
 ---
-build_neovim: false
 server_system_packages:
   - fzf
   - gcc

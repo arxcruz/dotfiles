@@ -2,34 +2,34 @@
 - name: Clonning fzf-git
   git:
     repo: "https://github.com/junegunn/fzf-git.sh.git"
-    dest: "{{ ansible_user_dir }}/.config/fzf-git"
+    dest: "{{ ansible_facts.user_dir }}/.config/fzf-git"
     force: yes
   
 - name: Install gitconfig
   ansible.builtin.copy:
     src: gitconfig
-    dest: "{{ ansible_user_dir }}/.gitconfig"
+    dest: "{{ ansible_facts.user_dir }}/.gitconfig"
 
 - name: Ensure antigravity-cli directory exists
   ansible.builtin.file:
-    path: "{{ ansible_user_dir }}/.gemini/antigravity-cli"
+    path: "{{ ansible_facts.user_dir }}/.gemini/antigravity-cli"
     state: directory
     mode: '0755'
 
 - name: Deploy antigravity-cli statusline.sh
   ansible.builtin.copy:
     src: antigravity-statusline.sh
-    dest: "{{ ansible_user_dir }}/.gemini/antigravity-cli/statusline.sh"
+    dest: "{{ ansible_facts.user_dir }}/.gemini/antigravity-cli/statusline.sh"
     mode: '0755'
 
 - name: Check if antigravity-cli settings.json exists
   ansible.builtin.stat:
-    path: "{{ ansible_user_dir }}/.gemini/antigravity-cli/settings.json"
+    path: "{{ ansible_facts.user_dir }}/.gemini/antigravity-cli/settings.json"
   register: antigravity_settings_stat
 
 - name: Read antigravity-cli settings.json if present
   ansible.builtin.slurp:
-    path: "{{ ansible_user_dir }}/.gemini/antigravity-cli/settings.json"
+    path: "{{ ansible_facts.user_dir }}/.gemini/antigravity-cli/settings.json"
   register: antigravity_settings_file
   when: antigravity_settings_stat.stat.exists
 
@@ -48,29 +48,29 @@
           }, recursive=True)
         | to_nice_json(indent=2)
       }}
-    dest: "{{ ansible_user_dir }}/.gemini/antigravity-cli/settings.json"
+    dest: "{{ ansible_facts.user_dir }}/.gemini/antigravity-cli/settings.json"
     mode: '0644'
 
 - name: Ensure .claude directory exists
   ansible.builtin.file:
-    path: "{{ ansible_user_dir }}/.claude"
+    path: "{{ ansible_facts.user_dir }}/.claude"
     state: directory
     mode: '0755'
 
 - name: Deploy Claude Code statusline.sh
   ansible.builtin.copy:
     src: claude-statusline.sh
-    dest: "{{ ansible_user_dir }}/.claude/statusline.sh"
+    dest: "{{ ansible_facts.user_dir }}/.claude/statusline.sh"
     mode: '0755'
 
 - name: Check if Claude Code settings.json exists
   ansible.builtin.stat:
-    path: "{{ ansible_user_dir }}/.claude/settings.json"
+    path: "{{ ansible_facts.user_dir }}/.claude/settings.json"
   register: claude_settings_stat
 
 - name: Read Claude Code settings.json if present
   ansible.builtin.slurp:
-    path: "{{ ansible_user_dir }}/.claude/settings.json"
+    path: "{{ ansible_facts.user_dir }}/.claude/settings.json"
   register: claude_settings_file
   when: claude_settings_stat.stat.exists
 
@@ -89,6 +89,6 @@
           }, recursive=True)
         | to_nice_json(indent=2)
       }}
-    dest: "{{ ansible_user_dir }}/.claude/settings.json"
+    dest: "{{ ansible_facts.user_dir }}/.claude/settings.json"
     mode: '0644'
 

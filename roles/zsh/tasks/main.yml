@@ -7,30 +7,30 @@
     - zsh
     - zsh-syntax-highlighting
   become: true
-  when: ansible_system == 'Linux'
+  when: ansible_facts.system == 'Linux'
 
 - name: install oh-my-posh
   package:
     name: "jandedobbeleer/oh-my-posh/oh-my-posh"
     state: present
-  when: ansible_system == 'Darwin'
+  when: ansible_facts.system == 'Darwin'
 
 - name: Download antidote from repository
   git:
     repo: "https://github.com/mattmc3/antidote.git"
-    dest: "{{ ansible_user_dir }}/.antidote"
+    dest: "{{ ansible_facts.user_dir }}/.antidote"
     force: yes
 
 - name: Deploy .zshrc from template
   template:
     src: .zshrc.j2
-    dest: "{{ ansible_user_dir }}/.zshrc"
+    dest: "{{ ansible_facts.user_dir }}/.zshrc"
     mode: '0644'
 
 - name: Deploy other zsh config files
   copy:
     src: "zsh/{{ item }}"
-    dest: "{{ ansible_user_dir }}/{{ item }}"
+    dest: "{{ ansible_facts.user_dir }}/{{ item }}"
     mode: '0644'
   loop:
     - .oh-my-posh.omp.toml
@@ -39,7 +39,7 @@
     - .zshenv
 
 - name: Change default shell to zsh
-  shell: chsh -s /bin/zsh {{ ansible_user_id }}
+  shell: chsh -s /bin/zsh {{ ansible_facts.user_id }}
   when:
-    - ansible_system == 'Linux'
+    - ansible_facts.system == 'Linux'
   become: true

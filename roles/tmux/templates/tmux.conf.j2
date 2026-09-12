@@ -2,9 +2,9 @@ set -sg escape-time 5
 
 set-option -s set-clipboard off
 set-option -g focus-events on
-{% if ansible_distribution == "Darwin" %}
+{% if ansible_facts.distribution == "Darwin" %}
 set -s copy-command 'pbcopy'
-{% elif ansible_os_family == "Archlinux" or ansible_os_family == "RedHat" or ansible_os_family == "Debian" %}
+{% elif ansible_facts.os_family == "Archlinux" or ansible_facts.os_family == "RedHat" or ansible_facts.os_family == "Debian" %}
 set -s copy-command 'xsel -i'
 {% endif %}
 bind -Tcopy-mode-vi C-j               send -X copy-pipe-and-cancel 'xsel -i'

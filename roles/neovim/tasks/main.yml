@@ -1,8 +1,2 @@
 ---
-- include_tasks: build.yml
-  when:
-    build_neovim | bool
-
 - include_tasks: install.yml
-  when:
-    build_neovim | bool != true

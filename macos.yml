@@ -2,10 +2,9 @@
 - name: Starting macOS configuration
   hosts: all
   vars_files:
-  - "{{ lookup('first_found', [ 'vars/{{ ansible_distribution|lower }}.yml', 'vars/default.yml']) }}"
+  - "{{ lookup('first_found', ['vars/' ~ ansible_facts.distribution | lower ~ '.yml', 'vars/default.yml']) }}"
   vars:
     is_server: false
-    build_neovim: false
 
 
   roles:

@@ -8,9 +8,9 @@
 
 - include_tasks: system-macosx.yml
   when:
-    ansible_system == 'Darwin'
+    ansible_facts.system == 'Darwin'
 
 - include_tasks: system-linux.yml
   when:
-    ansible_system == "Linux"
+    ansible_facts.system == "Linux"
 

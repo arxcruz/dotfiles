@@ -24,7 +24,7 @@ antidote load
 # Oh-my-posh
 eval "$(oh-my-posh init zsh --config $HOME/.oh-my-posh.omp.toml)"
 
-{% if ansible_system == 'Darwin' %}
+{% if ansible_facts.system == 'Darwin' %}
 # macOS specific configuration
 export VIRTUALENVWRAPPER_PYTHON=/opt/homebrew/bin/python3
 {% endif %}
@@ -35,7 +35,7 @@ export PROJECT_HOME={{ zsh_project_home }}
 source virtualenvwrapper.sh
 
 # fzf
-{% if ansible_system == 'Darwin' or ansible_distribution == 'Archlinux' %}
+{% if ansible_facts.system == 'Darwin' or ansible_facts.distribution == 'Archlinux' %}
 eval "$(fzf --zsh)"
 {% else %}
 # Fedora doesn't have support to fzf --zsh yet
@@ -88,7 +88,7 @@ export CLAUDE_CODE_USE_VERTEX={{ zsh_claude_use_vertex }}
 export CLOUD_ML_REGION={{ zsh_cloud_ml_region }}
 export ANTHROPIC_VERTEX_PROJECT_ID={{ zsh_anthropic_vertex_project_id }}
 
-{% if ansible_system == 'Darwin' %}
+{% if ansible_facts.system == 'Darwin' %}
 # The next line updates PATH for the Google Cloud SDK.
 if [ -f '$HOME/Downloads/google-cloud-sdk/path.zsh.inc' ]; then . '$HOME/Downloads/google-cloud-sdk/path.zsh.inc'; fi
 
