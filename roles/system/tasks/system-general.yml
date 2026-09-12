@@ -18,7 +18,7 @@
 
 - name: Deploy antigravity-cli statusline.sh
   ansible.builtin.copy:
-    src: statusline.sh
+    src: antigravity-statusline.sh
     dest: "{{ ansible_user_dir }}/.gemini/antigravity-cli/statusline.sh"
     mode: '0755'
 
