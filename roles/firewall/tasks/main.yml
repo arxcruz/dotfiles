@@ -4,6 +4,7 @@
     name: ufw
     state: present
   become: true
+  tags: [privileged]
 
 - name: Allow specified ports
   ufw:
@@ -12,9 +13,11 @@
     proto: "{{ item.proto }}"
   loop: "{{ firewall_allowed_ports }}"
   become: true
+  tags: [privileged]
 
 - name: Enable ufw
   ufw:
     state: enabled
     policy: deny
   become: true
+  tags: [privileged]

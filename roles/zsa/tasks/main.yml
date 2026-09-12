@@ -4,6 +4,7 @@
     name: plugdev
     state: present
   become: true
+  tags: [privileged]
 
 - name: Add user to plugdev group
   user:
@@ -11,6 +12,7 @@
     groups: plugdev
     append: true
   become: true
+  tags: [privileged]
 
 - name: Copy 50-zsa.rules to udev rules directory
   copy:
@@ -18,13 +20,16 @@
     dest: /etc/udev/rules.d/50-zsa.rules
     mode: '0644'
   become: true
+  tags: [privileged]
 
 - name: Reload udev rules
   command: udevadm control --reload-rules
   become: true
   changed_when: false
+  tags: [privileged]
 
 - name: Trigger udev rules
   command: udevadm trigger
   become: true
   changed_when: false
+  tags: [privileged]

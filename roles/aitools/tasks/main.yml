@@ -1,0 +1,92 @@
+---
+- name: Install/update Claude Code CLI
+  npm:
+    name: "@anthropic-ai/claude-code"
+    global: true
+    state: latest
+
+- name: Ensure .claude directory exists
+  file:
+    path: "{{ ansible_facts.user_dir }}/.claude"
+    state: directory
+    mode: '0755'
+
+- name: Deploy Claude Code statusline.sh
+  copy:
+    src: claude-statusline.sh
+    dest: "{{ ansible_facts.user_dir }}/.claude/statusline.sh"
+    mode: '0755'
+
+- name: Check if Claude Code settings.json exists
+  stat:
+    path: "{{ ansible_facts.user_dir }}/.claude/settings.json"
+  register: claude_settings_stat
+
+- name: Read Claude Code settings.json if present
+  slurp:
+    path: "{{ ansible_facts.user_dir }}/.claude/settings.json"
+  register: claude_settings_file
+  when: claude_settings_stat.stat.exists
+
+- name: Ensure statusLine is configured in Claude Code settings.json
+  copy:
+    content: >-
+      {{
+        ((claude_settings_file.content | default('') | b64decode | from_json)
+         if (claude_settings_stat.stat.exists and (claude_settings_file.content | default('') | b64decode | trim != ''))
+         else {})
+        | combine({
+            'statusLine': {
+              'type': 'command',
+              'command': '~/.claude/statusline.sh'
+            }
+          }, recursive=True)
+        | to_nice_json(indent=2)
+      }}
+    dest: "{{ ansible_facts.user_dir }}/.claude/settings.json"
+    mode: '0644'
+
+- name: Install/update antigravity-cli
+  shell: curl -fsSL https://antigravity.google/cli/install.sh | bash
+  changed_when: false
+
+- name: Ensure antigravity-cli directory exists
+  file:
+    path: "{{ ansible_facts.user_dir }}/.gemini/antigravity-cli"
+    state: directory
+    mode: '0755'
+
+- name: Deploy antigravity-cli statusline.sh
+  copy:
+    src: antigravity-statusline.sh
+    dest: "{{ ansible_facts.user_dir }}/.gemini/antigravity-cli/statusline.sh"
+    mode: '0755'
+
+- name: Check if antigravity-cli settings.json exists
+  stat:
+    path: "{{ ansible_facts.user_dir }}/.gemini/antigravity-cli/settings.json"
+  register: antigravity_settings_stat
+
+- name: Read antigravity-cli settings.json if present
+  slurp:
+    path: "{{ ansible_facts.user_dir }}/.gemini/antigravity-cli/settings.json"
+  register: antigravity_settings_file
+  when: antigravity_settings_stat.stat.exists
+
+- name: Ensure statusLine is configured in antigravity-cli settings.json
+  copy:
+    content: >-
+      {{
+        ((antigravity_settings_file.content | default('') | b64decode | from_json)
+         if (antigravity_settings_stat.stat.exists and (antigravity_settings_file.content | default('') | b64decode | trim != ''))
+         else {})
+        | combine({
+            'statusLine': {
+              'type': 'command',
+              'command': '~/.gemini/antigravity-cli/statusline.sh'
+            }
+          }, recursive=True)
+        | to_nice_json(indent=2)
+      }}
+    dest: "{{ ansible_facts.user_dir }}/.gemini/antigravity-cli/settings.json"
+    mode: '0644'

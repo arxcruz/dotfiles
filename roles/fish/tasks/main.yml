@@ -4,6 +4,7 @@
     name: fish
     state: present
   become: true
+  tags: [privileged]
   when: ansible_facts.system == 'Linux'
 
 - name: Install fish shell (Darwin)
@@ -45,3 +46,4 @@
   shell: chsh -s {{ fish_path.stdout }} {{ ansible_facts.user_id }}
   when: ansible_facts.system == 'Linux'
   become: true
+  tags: [privileged]

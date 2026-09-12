@@ -35,3 +35,5 @@
     - python
     - tmate
     - virtualenvwrapper
+
+- include_tasks: npm-global.yml

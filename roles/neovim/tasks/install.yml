@@ -4,6 +4,7 @@
     name: neovim
     state: present
   become: true
+  tags: [privileged]
   when: ansible_facts.system == 'Linux'
 
 - name: Install neovim

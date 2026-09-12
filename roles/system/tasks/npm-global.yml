@@ -1,0 +1,9 @@
+---
+- name: Ensure .npm-global directory exists
+  file:
+    path: "{{ ansible_facts.user_dir }}/.npm-global"
+    state: directory
+
+- name: Set npm global prefix
+  command: "npm config set prefix {{ ansible_facts.user_dir }}/.npm-global"
+  changed_when: false
