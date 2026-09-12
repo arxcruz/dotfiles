@@ -51,3 +51,44 @@
     dest: "{{ ansible_user_dir }}/.gemini/antigravity-cli/settings.json"
     mode: '0644'
 
+- name: Ensure .claude directory exists
+  ansible.builtin.file:
+    path: "{{ ansible_user_dir }}/.claude"
+    state: directory
+    mode: '0755'
+
+- name: Deploy Claude Code statusline.sh
+  ansible.builtin.copy:
+    src: claude-statusline.sh
+    dest: "{{ ansible_user_dir }}/.claude/statusline.sh"
+    mode: '0755'
+
+- name: Check if Claude Code settings.json exists
+  ansible.builtin.stat:
+    path: "{{ ansible_user_dir }}/.claude/settings.json"
+  register: claude_settings_stat
+
+- name: Read Claude Code settings.json if present
+  ansible.builtin.slurp:
+    path: "{{ ansible_user_dir }}/.claude/settings.json"
+  register: claude_settings_file
+  when: claude_settings_stat.stat.exists
+
+- name: Ensure statusLine is configured in Claude Code settings.json
+  ansible.builtin.copy:
+    content: >-
+      {{
+        ((claude_settings_file.content | default('') | b64decode | from_json)
+         if (claude_settings_stat.stat.exists and (claude_settings_file.content | default('') | b64decode | trim != ''))
+         else {})
+        | combine({
+            'statusLine': {
+              'type': 'command',
+              'command': '~/.claude/statusline.sh'
+            }
+          }, recursive=True)
+        | to_nice_json(indent=2)
+      }}
+    dest: "{{ ansible_user_dir }}/.claude/settings.json"
+    mode: '0644'
+
