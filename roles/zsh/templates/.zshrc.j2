@@ -84,9 +84,16 @@ alias vim=nvim
 alias ls="eza --long --color=always --git --icons=always --no-time"
 
 # Claude
-export CLAUDE_CODE_USE_VERTEX={{ zsh_claude_use_vertex }}
-export CLOUD_ML_REGION={{ zsh_cloud_ml_region }}
-export ANTHROPIC_VERTEX_PROJECT_ID={{ zsh_anthropic_vertex_project_id }}
+claude-work() {
+  CLAUDE_CODE_USE_VERTEX={{ zsh_claude_use_vertex }} \
+  CLOUD_ML_REGION={{ zsh_cloud_ml_region }} \
+  ANTHROPIC_VERTEX_PROJECT_ID={{ zsh_anthropic_vertex_project_id }} \
+  claude "$@"
+}
+
+claude-personal() {
+  env -u CLAUDE_CODE_USE_VERTEX -u CLOUD_ML_REGION -u ANTHROPIC_VERTEX_PROJECT_ID claude "$@"
+}
 
 {% if ansible_facts.system == 'Darwin' %}
 # The next line updates PATH for the Google Cloud SDK.
