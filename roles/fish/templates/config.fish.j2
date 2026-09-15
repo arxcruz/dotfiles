@@ -43,14 +43,3 @@ end
 function claude-personal
     env -u CLAUDE_CODE_USE_VERTEX -u CLOUD_ML_REGION -u ANTHROPIC_VERTEX_PROJECT_ID claude $argv
 end
-
-# Auto-start or attach to tmux session
-if status is-interactive
-    and not set -q TMUX
-    and command -q tmux
-    and test -z "$NVIM"
-    and test -z "$VIM"
-    and test "$TERM_PROGRAM" != "vscode"
-    and test "$TERM_PROGRAM" != "antigravity"
-    exec tmux new-session -A -s main
-end

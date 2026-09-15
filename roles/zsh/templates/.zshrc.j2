@@ -103,10 +103,5 @@ if [ -f '$HOME/Downloads/google-cloud-sdk/path.zsh.inc' ]; then . '$HOME/Downloa
 if [ -f '$HOME/Downloads/google-cloud-sdk/completion.zsh.inc' ]; then . '$HOME/Downloads/google-cloud-sdk/completion.zsh.inc'; fi
 {% endif %}
 
-# Auto-start or attach to tmux session
-if [[ -z "$TMUX" ]] && [[ $- == *i* ]] && command -v tmux >/dev/null 2>&1 && [[ -z "$NVIM" ]] && [[ -z "$VIM" ]] && [[ "$TERM_PROGRAM" != "vscode" ]] && [[ "$TERM_PROGRAM" != "antigravity" ]]; then
-    exec tmux new-session -A -s main
-fi
-
 # Added by Antigravity CLI installer
 export PATH="/Users/acruz/.local/bin:$PATH"
