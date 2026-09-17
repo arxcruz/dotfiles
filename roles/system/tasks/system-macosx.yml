@@ -21,6 +21,11 @@
     - font-hack-nerd-font
   ignore_errors: true
 
+- name: Install casks
+  homebrew_cask: name={{ item }} state=present
+  with_items:
+    - hammerspoon
+
 - name: Install packages
   package: name={{ item }} state=present
   with_items:
@@ -35,5 +40,16 @@
     - python
     - tmate
     - virtualenvwrapper
+
+- name: Ensure ~/.hammerspoon directory exists
+  file:
+    path: "{{ lookup('env', 'HOME') }}/.hammerspoon"
+    state: directory
+
+- name: Copy Hammerspoon init.lua
+  copy:
+    src: hammerspoon-init.lua
+    dest: "{{ lookup('env', 'HOME') }}/.hammerspoon/init.lua"
+    mode: '0644'
 
 - include_tasks: npm-global.yml
