@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+  <key>Label</key>
+  <string>com.github.akitaonrails.ai-memory</string>
+
+  <key>ProgramArguments</key>
+  <array>
+    <string>{{ ai_memory_bin_link }}</string>
+    <string>serve</string>
+    <string>--transport</string>
+    <string>http</string>
+    <string>--enable-web</string>
+  </array>
+
+  <key>RunAtLoad</key>
+  <true/>
+  <key>KeepAlive</key>
+  <true/>
+
+  <key>ProcessType</key>
+  <string>Interactive</string>
+
+  <key>StandardOutPath</key>
+  <string>{{ ansible_facts.user_dir }}/Library/Logs/ai-memory/stdout.log</string>
+  <key>StandardErrorPath</key>
+  <string>{{ ansible_facts.user_dir }}/Library/Logs/ai-memory/stderr.log</string>
+</dict>
+</plist>

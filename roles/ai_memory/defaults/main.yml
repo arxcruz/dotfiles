@@ -1,0 +1,16 @@
+---
+# GitHub release tag to install, or 'latest'.
+ai_memory_version: latest
+
+# Agent CLIs to wire up via `install-hooks` / `install-mcp`.
+ai_memory_agents:
+  - claude-code
+  - opencode
+
+ai_memory_bin_dir: "{{ ansible_facts.user_dir }}/.local/lib/ai-memory"
+ai_memory_bin_link: "{{ ansible_facts.user_dir }}/.local/bin/ai-memory"
+
+# Only used on Linux — macOS defaults to ~/Library/Application Support/ai-memory
+# and is left unspecified to match the upstream launchd unit.
+ai_memory_data_dir: "{{ ansible_facts.user_dir }}/.local/share/ai-memory"
+ai_memory_config_file: "{{ ansible_facts.user_dir }}/.config/ai-memory/config.toml"

@@ -1,0 +1,110 @@
+---
+# Native ai-memory install: no Docker/Podman on either OS. The project
+# publishes a prebuilt binary per OS/arch and its own systemd-user /
+# launchd unit templates, which is what this role adapts.
+# https://github.com/akitaonrails/ai-memory
+
+- name: Determine ai-memory release OS component
+  set_fact:
+    ai_memory_os: "{{ 'macos' if ansible_facts.system == 'Darwin' else 'linux' }}"
+
+- name: Determine ai-memory release arch component
+  set_fact:
+    ai_memory_arch: "{{ 'aarch64' if ansible_facts.architecture in ['arm64', 'aarch64'] else 'x86_64' }}"
+
+- name: Determine ai-memory release asset name and base URL
+  set_fact:
+    ai_memory_asset: "ai-memory-{{ ai_memory_os }}-{{ ai_memory_arch }}.tar.gz"
+    ai_memory_release_base: >-
+      https://github.com/akitaonrails/ai-memory/releases/{{
+        'latest/download' if ai_memory_version == 'latest' else 'download/' + ai_memory_version
+      }}
+
+- name: Ensure ai-memory bin directory exists
+  file:
+    path: "{{ ai_memory_bin_dir }}"
+    state: directory
+    mode: '0755'
+
+- name: Ensure ~/.local/bin exists
+  file:
+    path: "{{ ansible_facts.user_dir }}/.local/bin"
+    state: directory
+    mode: '0755'
+
+- name: Ensure ai-memory download cache directory exists
+  file:
+    path: "{{ ansible_facts.user_dir }}/.cache/ai-memory"
+    state: directory
+    mode: '0755'
+
+- name: Download ai-memory release archive
+  get_url:
+    url: "{{ ai_memory_release_base }}/{{ ai_memory_asset }}"
+    dest: "{{ ansible_facts.user_dir }}/.cache/ai-memory/{{ ai_memory_asset }}"
+    checksum: "sha256:{{ ai_memory_release_base }}/{{ ai_memory_asset }}.sha256"
+    mode: '0644'
+  register: ai_memory_download
+
+- name: Check if ai-memory binary is already extracted
+  stat:
+    path: "{{ ai_memory_bin_dir }}/ai-memory"
+  register: ai_memory_bin_stat
+
+- name: Extract ai-memory release archive
+  # ansible.builtin.unarchive requires GNU tar for its idempotency check;
+  # macOS ships BSD tar, so extract directly instead. Safe to always run:
+  # the `when` above already makes this conditional on a real change.
+  command: tar -xzf "{{ ansible_facts.user_dir }}/.cache/ai-memory/{{ ai_memory_asset }}" -C "{{ ai_memory_bin_dir }}"
+  when: ai_memory_download.changed or not ai_memory_bin_stat.stat.exists
+
+- name: Symlink ai-memory into ~/.local/bin
+  file:
+    src: "{{ ai_memory_bin_dir }}/ai-memory"
+    dest: "{{ ai_memory_bin_link }}"
+    state: link
+    force: true
+
+- name: Check if ai-memory is initialized (Linux)
+  stat:
+    path: "{{ ai_memory_config_file }}"
+  register: ai_memory_config_stat
+  when: ansible_facts.system == 'Linux'
+
+- name: Initialize ai-memory data dir (Linux)
+  command: >
+    {{ ai_memory_bin_link }} --data-dir {{ ai_memory_data_dir }}
+    --config {{ ai_memory_config_file }} init
+  when: ansible_facts.system == 'Linux' and not ai_memory_config_stat.stat.exists
+
+- name: Check if ai-memory is initialized (macOS)
+  stat:
+    path: "{{ ansible_facts.user_dir }}/Library/Application Support/ai-memory/config.toml"
+  register: ai_memory_macos_config_stat
+  when: ansible_facts.system == 'Darwin'
+
+- name: Initialize ai-memory data dir (macOS)
+  command: "{{ ai_memory_bin_link }} init"
+  when: ansible_facts.system == 'Darwin' and not ai_memory_macos_config_stat.stat.exists
+
+- include_tasks: service-linux.yml
+  when: ansible_facts.system == 'Linux'
+
+- include_tasks: service-macos.yml
+  when: ansible_facts.system == 'Darwin'
+
+- name: Wait for ai-memory server to accept connections
+  wait_for:
+    host: 127.0.0.1
+    port: 49374
+    timeout: 15
+
+- name: Wire ai-memory hooks into agent CLIs
+  command: "{{ ai_memory_bin_link }} install-hooks --agent {{ item }} --apply"
+  loop: "{{ ai_memory_agents }}"
+  changed_when: false
+
+- name: Register ai-memory MCP server with agent CLIs
+  command: "{{ ai_memory_bin_link }} install-mcp --client {{ item }} --apply"
+  loop: "{{ ai_memory_agents }}"
+  changed_when: false

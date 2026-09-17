@@ -1,0 +1,15 @@
+[Unit]
+Description=ai-memory MCP server (user service)
+Documentation=https://github.com/akitaonrails/ai-memory
+
+[Service]
+Type=simple
+EnvironmentFile=-%h/.config/ai-memory/env
+ExecStart={{ ai_memory_bin_link }} --data-dir {{ ai_memory_data_dir }} --config {{ ai_memory_config_file }} serve --transport http --enable-web
+Restart=on-failure
+RestartSec=5s
+NoNewPrivileges=true
+PrivateTmp=true
+
+[Install]
+WantedBy=default.target

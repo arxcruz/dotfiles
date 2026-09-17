@@ -1,0 +1,30 @@
+---
+- name: Enable linger so the ai-memory user service starts on boot without login
+  command: loginctl enable-linger {{ ansible_facts.user_id }}
+  changed_when: false
+
+- name: Ensure systemd user unit directory exists
+  file:
+    path: "{{ ansible_facts.user_dir }}/.config/systemd/user"
+    state: directory
+    mode: '0755'
+
+- name: Deploy ai-memory systemd user service
+  template:
+    src: ai-memory.service.j2
+    dest: "{{ ansible_facts.user_dir }}/.config/systemd/user/ai-memory.service"
+    mode: '0644'
+  register: ai_memory_systemd_unit
+
+- name: Reload systemd user daemon if ai-memory unit changed
+  systemd:
+    daemon_reload: true
+    scope: user
+  when: ai_memory_systemd_unit.changed
+
+- name: Ensure ai-memory user service is enabled and running
+  systemd:
+    name: ai-memory.service
+    scope: user
+    enabled: true
+    state: started

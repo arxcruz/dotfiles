@@ -10,6 +10,7 @@
   roles:
     - { role: 'system', tags: ['system'] }
     - { role: 'aitools', tags: ['aitools'] }
+    - { role: 'ai_memory', tags: ['ai_memory'] }
     - { role: 'neovim', tags: ['neovim'] }
     - { role: 'tmux', tags: ['tmux'] }
     - { role: 'zsh', tags: ['zsh'] }
