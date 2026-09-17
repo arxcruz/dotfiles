@@ -16,14 +16,19 @@ This repository uses Ansible roles to deploy and manage dotfiles. This approach 
 
 | Role | Description |
 |------|-------------|
-| `system` | System-level configuration and packages |
+| `system` | System-level configuration and packages (desktop and server) |
 | `neovim` | Neovim text editor configuration |
 | `tmux` | Terminal multiplexer configuration |
 | `zsh` | Zsh shell with modern tools (fzf, zoxide, antidote, oh-my-posh) |
 | `fish` | Fish shell configuration with oh-my-posh |
-| `firewall` | UFW firewall configuration |
+| `firewall` | UFW firewall configuration (desktop) |
 | `streamdeck` | Stream Deck scripts for monitor management |
 | `zsa` | ZSA keyboard (ErgoDox/Moonlander) udev rules |
+| `iptables` | Server firewall via iptables-persistent, default-deny inbound |
+| `mariadb` | Locks MariaDB's listening socket to loopback |
+| `bind9` | Disables DNS recursion (prevents open-resolver abuse) |
+| `fail2ban` | Ban-time/recidive-jail hardening on top of the package defaults |
+| `unattended_upgrades` | Ensures security updates actually auto-apply |
 
 ## Prerequisites
 
@@ -58,6 +63,13 @@ ansible-playbook run.yml -i "localhost," --connection=local --ask-become-pass
 - `run.yml` - Main playbook that runs all roles
 - `desktop.yml` - Desktop-specific configuration
 - `macos.yml` - macOS-specific configuration
+- `server.yml` - Server hardening: firewall, MariaDB/BIND lockdown, fail2ban tuning, unattended-upgrades, legacy package purge, SSH hardening
+
+Run it against a remote server (not localhost) by pointing at an inventory with that host, e.g.:
+
+```bash
+ansible-playbook server.yml -i "your.server.ip," -u your_user --ask-become-pass
+```
 
 ## Using Ansible Vault for Sensitive Data
 

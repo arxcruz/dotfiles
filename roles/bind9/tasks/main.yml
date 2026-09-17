@@ -1,0 +1,27 @@
+---
+- name: Ensure bind9 is installed
+  package:
+    name: bind9
+    state: present
+  become: true
+  tags: [privileged]
+
+- name: Deploy named.conf.options
+  template:
+    src: named.conf.options.j2
+    dest: /etc/bind/named.conf.options
+    owner: root
+    group: bind
+    mode: '0644'
+    validate: 'named-checkconf %s'
+  become: true
+  tags: [privileged]
+  notify: Reload bind9
+
+- name: Ensure bind9 is enabled and running
+  service:
+    name: named
+    enabled: true
+    state: started
+  become: true
+  tags: [privileged]

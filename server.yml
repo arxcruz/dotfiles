@@ -1,0 +1,22 @@
+---
+- name: Provision and harden server
+  hosts: all
+  vars_files:
+    - "{{ lookup('first_found', ['vars/' ~ ansible_facts.distribution | lower ~ '.yml', 'vars/default.yml']) }}"
+  vars:
+    is_server: true
+    # Toggle these off per-host (e.g. in inventory host_vars) for a server
+    # that doesn't run its own database or authoritative DNS.
+    mariadb_enabled: true
+    bind9_enabled: true
+
+  roles:
+    - { role: 'system', tags: ['system'] }
+    - { role: 'aitools', tags: ['aitools'] }
+    - { role: 'tmux', tags: ['tmux'] }
+    - { role: 'fish', tags: ['fish'] }
+    - { role: 'iptables', tags: ['iptables', 'firewall'] }
+    - { role: 'fail2ban', tags: ['fail2ban'] }
+    - { role: 'unattended_upgrades', tags: ['unattended-upgrades'] }
+    - { role: 'mariadb', tags: ['mariadb'], when: mariadb_enabled | bool }
+    - { role: 'bind9', tags: ['bind9', 'dns'], when: bind9_enabled | bool }

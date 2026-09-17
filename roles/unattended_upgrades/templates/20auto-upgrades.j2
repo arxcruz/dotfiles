@@ -1,0 +1,3 @@
+// {{ ansible_managed }}
+APT::Periodic::Update-Package-Lists "{{ '1' if unattended_upgrades_update_package_lists else '0' }}";
+APT::Periodic::Unattended-Upgrade "{{ '1' if unattended_upgrades_enable else '0' }}";

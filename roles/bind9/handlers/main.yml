@@ -1,0 +1,6 @@
+---
+- name: Reload bind9
+  service:
+    name: named
+    state: reloaded
+  become: true

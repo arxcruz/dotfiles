@@ -1,5 +1,40 @@
 ---
-- name: Configure ssh
-  copy:
-    dest: /home/arxcruz/sshd_config
-    src: 'sshd_config'
+- name: Purge legacy/unnecessary packages
+  package:
+    name: "{{ system_server_purge_packages }}"
+    state: absent
+  become: true
+  tags: [privileged]
+
+- name: Autoremove orphaned dependencies
+  ansible.builtin.apt:
+    autoremove: true
+  become: true
+  tags: [privileged]
+  when: ansible_facts.os_family == "Debian"
+
+- name: Ensure sshd_config.d drop-ins are actually included
+  # Older sshd_config files (pre-dating current Debian's template) don't
+  # have this line, which means anything dropped into sshd_config.d/ is
+  # silently ignored. Must be present and near the top for a drop-in to
+  # reliably take effect (sshd applies the first value it sees per keyword).
+  ansible.builtin.lineinfile:
+    path: /etc/ssh/sshd_config
+    line: "Include /etc/ssh/sshd_config.d/*.conf"
+    insertbefore: BOF
+    validate: 'sshd -t -f %s'
+  become: true
+  tags: [privileged]
+  notify: Reload sshd
+
+- name: Deploy SSH hardening drop-in
+  template:
+    src: sshd_hardening.conf.j2
+    dest: /etc/ssh/sshd_config.d/99-hardening.conf
+    owner: root
+    group: root
+    mode: '0644'
+    validate: 'sshd -t -f %s'
+  become: true
+  tags: [privileged]
+  notify: Reload sshd

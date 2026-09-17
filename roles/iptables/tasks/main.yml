@@ -1,0 +1,49 @@
+---
+- name: Preseed iptables-persistent to skip interactive save prompts
+  ansible.builtin.debconf:
+    name: iptables-persistent
+    question: "{{ item }}"
+    value: "false"
+    vtype: boolean
+  loop:
+    - iptables-persistent/autosave_v4
+    - iptables-persistent/autosave_v6
+  become: true
+  tags: [privileged]
+
+- name: Ensure iptables-persistent is installed
+  package:
+    name: iptables-persistent
+    state: present
+  become: true
+  tags: [privileged]
+
+- name: Deploy IPv4 firewall rules
+  template:
+    src: rules.v4.j2
+    dest: /etc/iptables/rules.v4
+    owner: root
+    group: root
+    mode: '0640'
+  become: true
+  tags: [privileged]
+  notify: Apply iptables rules
+
+- name: Deploy IPv6 firewall rules
+  template:
+    src: rules.v6.j2
+    dest: /etc/iptables/rules.v6
+    owner: root
+    group: root
+    mode: '0640'
+  become: true
+  tags: [privileged]
+  notify: Apply iptables rules
+
+- name: Ensure netfilter-persistent is enabled and running
+  service:
+    name: netfilter-persistent
+    enabled: true
+    state: started
+  become: true
+  tags: [privileged]

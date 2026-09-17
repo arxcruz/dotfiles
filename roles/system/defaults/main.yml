@@ -1,1 +1,20 @@
 ---
+system_server_purge_packages:
+  - python2
+  - python2.7
+  - python2-minimal
+  - python2.7-minimal
+  - libpython2.7-stdlib
+  - libpython2.7-minimal
+  - libpython2-stdlib
+  - apache2
+  - znc
+  - znc-perl
+  - znc-dev
+  - znc-python
+  - znc-tcl
+  - python-certbot-apache
+  - python3-certbot-apache
+  - python-pkg-resources
+  - python-setuptools
+  - python-six

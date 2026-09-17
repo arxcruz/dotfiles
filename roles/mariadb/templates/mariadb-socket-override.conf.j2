@@ -1,0 +1,6 @@
+# {{ ansible_managed }}
+[Socket]
+ListenStream=
+ListenStream=@mariadb
+ListenStream=/run/mysqld/mysqld.sock
+ListenStream={{ mariadb_bind_address }}:3306

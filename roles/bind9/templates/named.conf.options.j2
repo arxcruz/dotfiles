@@ -1,0 +1,7 @@
+// {{ ansible_managed }}
+options {
+	directory "{{ bind9_directory }}";
+
+	recursion {{ 'yes' if bind9_recursion else 'no' }};
+	allow-query { {{ bind9_allow_query }}; };
+};

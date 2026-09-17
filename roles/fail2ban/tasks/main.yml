@@ -1,0 +1,26 @@
+---
+- name: Ensure fail2ban is installed
+  package:
+    name: fail2ban
+    state: present
+  become: true
+  tags: [privileged]
+
+- name: Deploy fail2ban hardening overrides
+  template:
+    src: 99-hardening.local.j2
+    dest: /etc/fail2ban/jail.d/99-hardening.local
+    owner: root
+    group: root
+    mode: '0644'
+  become: true
+  tags: [privileged]
+  notify: Reload fail2ban
+
+- name: Ensure fail2ban is enabled and running
+  service:
+    name: fail2ban
+    enabled: true
+    state: started
+  become: true
+  tags: [privileged]

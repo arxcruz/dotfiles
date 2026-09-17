@@ -1,0 +1,4 @@
+---
+bind9_directory: /var/cache/bind
+bind9_recursion: false
+bind9_allow_query: "any"

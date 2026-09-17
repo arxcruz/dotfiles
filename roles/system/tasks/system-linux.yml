@@ -8,6 +8,19 @@
   become: true
   tags: [privileged]
 
+# Debian's `bat` package installs the binary as `batcat`, not `bat` - a
+# long-standing rename due to a name collision with an unrelated package.
+# zsh's fzf preview config (and anything else invoking `bat` directly)
+# would otherwise silently fail with "command not found".
+- name: Symlink batcat to bat
+  ansible.builtin.file:
+    src: /usr/bin/batcat
+    dest: /usr/local/bin/bat
+    state: link
+  become: true
+  tags: [privileged]
+  when: ansible_facts.os_family == "Debian"
+
 - include_tasks: system-linux-desktop.yml
   when: not is_server | bool
 

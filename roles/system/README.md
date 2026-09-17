@@ -40,7 +40,8 @@ The role performs the following tasks:
   - Installs the Hack Nerd Font.
 
 - **Server Environment:**
-  - Copies a `sshd_config` file.
+  - Purges legacy/unnecessary packages (`system_server_purge_packages`, e.g. Python 2, Apache2, znc) and autoremoves orphaned dependencies.
+  - Deploys an SSH hardening drop-in to `/etc/ssh/sshd_config.d/99-hardening.conf` (`PermitRootLogin no`, `PasswordAuthentication no`, etc.), validated with `sshd -t` before being applied, and reloads sshd on change.
 
 ## Variables
 
@@ -50,6 +51,10 @@ The role performs the following tasks:
 
 - `is_server`: A boolean that determines whether the target machine is a server or a desktop environment.
 - `system_packages`: A list of packages to install on Linux systems. This variable must be defined in the playbook or inventory.
+
+### Optional Variables (server only)
+
+- `system_server_purge_packages` (default in `defaults/main.yml`): list of packages to purge on server hosts.
 
 ### Example
 

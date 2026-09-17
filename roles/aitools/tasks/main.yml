@@ -1,4 +1,18 @@
 ---
+# npm's default global prefix (/usr/lib/node_modules on this Nodesource
+# install) requires root. Point it at a user-writable directory instead of
+# relying on the desktop-only system/npm-global.yml task, since this role
+# also runs on servers where that task never gets included.
+- name: Ensure ~/.npm-global directory exists
+  file:
+    path: "{{ ansible_facts.user_dir }}/.npm-global"
+    state: directory
+    mode: '0755'
+
+- name: Set npm global prefix to user-local directory
+  command: "npm config set prefix {{ ansible_facts.user_dir }}/.npm-global"
+  changed_when: false
+
 - name: Install/update Claude Code CLI
   npm:
     name: "@anthropic-ai/claude-code"

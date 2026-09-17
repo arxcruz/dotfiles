@@ -1,0 +1,6 @@
+; {{ ansible_managed }}
+[DEFAULT]
+bantime = {{ fail2ban_bantime }}
+
+[recidive]
+enabled = {{ 'true' if fail2ban_enable_recidive else 'false' }}

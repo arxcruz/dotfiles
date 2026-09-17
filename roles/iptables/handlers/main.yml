@@ -1,0 +1,4 @@
+---
+- name: Apply iptables rules
+  command: netfilter-persistent reload
+  become: true

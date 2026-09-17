@@ -1,0 +1,31 @@
+---
+- name: Ensure unattended-upgrades is installed
+  package:
+    name: unattended-upgrades
+    state: present
+  become: true
+  tags: [privileged]
+
+# The unattended-upgrades package installs config that DEFINES the security
+# origin allowlist (/etc/apt/apt.conf.d/50unattended-upgrades) but does NOT
+# on its own create the periodic timer trigger. Without this file the
+# service is "enabled" but never actually runs.
+- name: Enable the apt periodic timer for unattended-upgrades
+  template:
+    src: 20auto-upgrades.j2
+    dest: /etc/apt/apt.conf.d/20auto-upgrades
+    owner: root
+    group: root
+    mode: '0644'
+  become: true
+  tags: [privileged]
+
+- name: Ensure apt daily timers are enabled
+  service:
+    name: "{{ item }}"
+    enabled: true
+  loop:
+    - apt-daily.timer
+    - apt-daily-upgrade.timer
+  become: true
+  tags: [privileged]

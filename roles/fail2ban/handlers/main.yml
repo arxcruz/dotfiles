@@ -1,0 +1,6 @@
+---
+- name: Reload fail2ban
+  service:
+    name: fail2ban
+    state: reloaded
+  become: true

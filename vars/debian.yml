@@ -3,8 +3,11 @@ system_packages:
   - gcc
   - git
   - git-review
-  - python-virtualenv
+  - python3-virtualenv
   - tmate
+  - eza
+  - bat
+  - zoxide
 
 alternatives: "update-alternatives"
 

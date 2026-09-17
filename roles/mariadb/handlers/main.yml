@@ -1,0 +1,28 @@
+---
+- name: Reload systemd daemon
+  systemd:
+    daemon_reload: true
+  become: true
+
+# systemd refuses to restart mariadb.socket while mariadb.service is already
+# active ("Socket service mariadb.service already active, refusing") -
+# mariadbd holds the listening socket directly once running, not just via
+# activation hand-off. The service must be stopped first to release it,
+# before the socket unit can be cycled to pick up the new ListenStream.
+- name: Stop mariadb service before cycling its socket
+  service:
+    name: mariadb.service
+    state: stopped
+  become: true
+
+- name: Restart mariadb socket
+  service:
+    name: mariadb.socket
+    state: restarted
+  become: true
+
+- name: Start mariadb service
+  service:
+    name: mariadb.service
+    state: started
+  become: true

@@ -1,0 +1,29 @@
+---
+# The vendor mariadb.socket unit ships with a bare "ListenStream=3306", which
+# systemd binds as a wildcard socket (0.0.0.0/[::]) and hands to mariadbd
+# already-open - this silently overrides mariadbd's own bind-address setting
+# in mariadb.conf.d/50-server.cnf. A socket unit drop-in is the only way to
+# actually restrict it.
+- name: Ensure mariadb.socket.d override directory exists
+  file:
+    path: /etc/systemd/system/mariadb.socket.d
+    state: directory
+    owner: root
+    group: root
+    mode: '0755'
+  become: true
+  tags: [privileged]
+
+- name: Restrict MariaDB's listening socket
+  template:
+    src: mariadb-socket-override.conf.j2
+    dest: /etc/systemd/system/mariadb.socket.d/override.conf
+    owner: root
+    group: root
+    mode: '0644'
+  become: true
+  tags: [privileged]
+  notify:
+    - Reload systemd daemon
+    - Restart mariadb socket
+    - Restart mariadb service
