@@ -1,0 +1,12 @@
+---
+# GitHub release tag to install, or 'latest'.
+codegraph_version: latest
+
+# Agent CLIs to wire the MCP server into via `codegraph install --target`.
+codegraph_agents:
+  - claude
+  - opencode
+  - antigravity
+
+codegraph_install_dir: "{{ ansible_facts.user_dir }}/.local/lib/codegraph"
+codegraph_bin_link: "{{ ansible_facts.user_dir }}/.local/bin/codegraph"

@@ -1,0 +1,80 @@
+---
+# Native codegraph install: the project publishes a prebuilt, self-contained
+# bundle (vendored Node runtime + app) per OS/arch on GitHub Releases, plus
+# its own interactive/non-interactive installer for wiring agent MCP config.
+# https://github.com/colbymchenry/codegraph
+#
+# No daemon/service: agents launch `codegraph serve --mcp` themselves over
+# stdio, so unlike ai_memory this role has nothing to run persistently.
+
+- name: Determine codegraph release OS component
+  set_fact:
+    codegraph_os: "{{ 'darwin' if ansible_facts.system == 'Darwin' else 'linux' }}"
+
+- name: Determine codegraph release arch component
+  set_fact:
+    codegraph_arch: "{{ 'arm64' if ansible_facts.architecture in ['arm64', 'aarch64'] else 'x64' }}"
+
+- name: Determine codegraph release asset name and base URL
+  set_fact:
+    codegraph_asset: "codegraph-{{ codegraph_os }}-{{ codegraph_arch }}.tar.gz"
+    codegraph_release_base: >-
+      https://github.com/colbymchenry/codegraph/releases/{{
+        'latest/download' if codegraph_version == 'latest' else 'download/' + codegraph_version
+      }}
+
+- name: Ensure codegraph install directory exists
+  file:
+    path: "{{ codegraph_install_dir }}"
+    state: directory
+    mode: '0755'
+
+- name: Ensure ~/.local/bin exists
+  file:
+    path: "{{ ansible_facts.user_dir }}/.local/bin"
+    state: directory
+    mode: '0755'
+
+- name: Ensure codegraph download cache directory exists
+  file:
+    path: "{{ ansible_facts.user_dir }}/.cache/codegraph"
+    state: directory
+    mode: '0755'
+
+- name: Download codegraph release archive
+  get_url:
+    url: "{{ codegraph_release_base }}/{{ codegraph_asset }}"
+    dest: "{{ ansible_facts.user_dir }}/.cache/codegraph/{{ codegraph_asset }}"
+    checksum: "sha256:{{ codegraph_release_base }}/SHA256SUMS"
+    mode: '0644'
+  register: codegraph_download
+
+- name: Check if codegraph binary is already extracted
+  stat:
+    path: "{{ codegraph_install_dir }}/bin/codegraph"
+  register: codegraph_bin_stat
+
+- name: Extract codegraph release archive
+  # Archives contain a top-level codegraph-<os>-<arch>/ dir; strip it so the
+  # bundle's bin/, lib/, etc. land directly under codegraph_install_dir.
+  # ansible.builtin.unarchive requires GNU tar for its idempotency check;
+  # macOS ships BSD tar, so extract directly instead. Safe to always run:
+  # the `when` above already makes this conditional on a real change.
+  command: >
+    tar -xzf "{{ ansible_facts.user_dir }}/.cache/codegraph/{{ codegraph_asset }}"
+    -C "{{ codegraph_install_dir }}" --strip-components=1
+  when: codegraph_download.changed or not codegraph_bin_stat.stat.exists
+
+- name: Symlink codegraph into ~/.local/bin
+  file:
+    src: "{{ codegraph_install_dir }}/bin/codegraph"
+    dest: "{{ codegraph_bin_link }}"
+    state: link
+    force: true
+
+- name: Register codegraph MCP server with agent CLIs
+  command: >
+    {{ codegraph_bin_link }} install
+    --target={{ codegraph_agents | join(',') }}
+    --yes
+  changed_when: false
