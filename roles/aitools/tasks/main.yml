@@ -65,7 +65,7 @@
         | combine({
             'statusLine': {
               'type': 'command',
-              'command': '~/{{ item }}/statusline.sh'
+              'command': '~/' ~ item ~ '/statusline.sh'
             }
           }, recursive=True)
         | to_nice_json(indent=2)
