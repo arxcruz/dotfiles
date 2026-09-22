@@ -41,6 +41,5 @@ function claudew
 end
 
 function claudep
-    env CLAUDE_CONFIG_DIR="$HOME/.claude-personal"
-    env -u CLAUDE_CODE_USE_VERTEX -u CLOUD_ML_REGION -u ANTHROPIC_VERTEX_PROJECT_ID claude $argv
+    env CLAUDE_CONFIG_DIR="$HOME/.claude-personal" -u CLAUDE_CODE_USE_VERTEX -u CLOUD_ML_REGION -u ANTHROPIC_VERTEX_PROJECT_ID claude $argv
 end
