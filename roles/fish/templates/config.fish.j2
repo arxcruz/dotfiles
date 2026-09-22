@@ -36,10 +36,11 @@ alias {{ alias.name }}="{{ alias.value }}"
 {% endfor %}
 
 # Claude
-function claude-work
-    env CLAUDE_CODE_USE_VERTEX={{ fish_claude_use_vertex }} CLOUD_ML_REGION="{{ fish_cloud_ml_region }}" ANTHROPIC_VERTEX_PROJECT_ID="{{ fish_anthropic_vertex_project_id }}" claude $argv
+function claudew
+    env CLAUDE_CONFIG_DIR="$HOME/.claude-work" CLAUDE_CODE_USE_VERTEX={{ fish_claude_use_vertex }} CLOUD_ML_REGION="{{ fish_cloud_ml_region }}" ANTHROPIC_VERTEX_PROJECT_ID="{{ fish_anthropic_vertex_project_id }}" claude $argv
 end
 
-function claude-personal
+function claudep
+    env CLAUDE_CONFIG_DIR="$HOME/.claude-personal"
     env -u CLAUDE_CODE_USE_VERTEX -u CLOUD_ML_REGION -u ANTHROPIC_VERTEX_PROJECT_ID claude $argv
 end

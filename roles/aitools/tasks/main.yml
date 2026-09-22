@@ -19,46 +19,62 @@
     global: true
     state: latest
 
-- name: Ensure .claude directory exists
+- name: Ensure Claude Code profile directories exist
   file:
-    path: "{{ ansible_facts.user_dir }}/.claude"
+    path: "{{ ansible_facts.user_dir }}/{{ item }}"
     state: directory
     mode: '0755'
+  loop:
+    - .claude-work
+    - .claude-personal
 
-- name: Deploy Claude Code statusline.sh
+- name: Deploy Claude Code statusline.sh to each profile
   copy:
     src: claude-statusline.sh
-    dest: "{{ ansible_facts.user_dir }}/.claude/statusline.sh"
+    dest: "{{ ansible_facts.user_dir }}/{{ item }}/statusline.sh"
     mode: '0755'
+  loop:
+    - .claude-work
+    - .claude-personal
 
-- name: Check if Claude Code settings.json exists
+- name: Check if Claude Code settings.json exists in each profile
   stat:
-    path: "{{ ansible_facts.user_dir }}/.claude/settings.json"
-  register: claude_settings_stat
+    path: "{{ ansible_facts.user_dir }}/{{ item }}/settings.json"
+  register: claude_settings_stats
+  loop:
+    - .claude-work
+    - .claude-personal
 
-- name: Read Claude Code settings.json if present
+- name: Read Claude Code settings.json from each profile if present
   slurp:
-    path: "{{ ansible_facts.user_dir }}/.claude/settings.json"
-  register: claude_settings_file
-  when: claude_settings_stat.stat.exists
+    path: "{{ ansible_facts.user_dir }}/{{ item.item }}/settings.json"
+  register: claude_settings_files
+  loop: "{{ claude_settings_stats.results }}"
+  when: item.stat.exists
 
-- name: Ensure statusLine is configured in Claude Code settings.json
+- name: Ensure statusLine is configured in each Claude Code settings.json
+  vars:
+    _stat: "{{ claude_settings_stats.results | selectattr('item', 'equalto', item) | first }}"
+    _slurp: "{{ claude_settings_files.results | selectattr('item.item', 'equalto', item) | first | default({}) }}"
+    _raw: "{{ _slurp.content | default('') | b64decode | trim }}"
+    _existing: "{{ (_raw != '') | ternary(_raw | from_json, {}) }}"
   copy:
     content: >-
       {{
-        ((claude_settings_file.content | default('') | b64decode | from_json)
-         if (claude_settings_stat.stat.exists and (claude_settings_file.content | default('') | b64decode | trim != ''))
-         else {})
+        _existing
         | combine({
             'statusLine': {
               'type': 'command',
-              'command': '~/.claude/statusline.sh'
+              'command': '~/{{ item }}/statusline.sh'
             }
           }, recursive=True)
         | to_nice_json(indent=2)
       }}
-    dest: "{{ ansible_facts.user_dir }}/.claude/settings.json"
+    dest: "{{ ansible_facts.user_dir }}/{{ item }}/settings.json"
     mode: '0644'
+  loop:
+    - .claude-work
+    - .claude-personal
 
 - name: Install/update antigravity-cli
   shell: curl -fsSL https://antigravity.google/cli/install.sh | bash

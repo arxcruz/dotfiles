@@ -84,14 +84,16 @@ alias vim=nvim
 alias ls="eza --long --color=always --git --icons=always --no-time"
 
 # Claude
-claude-work() {
+claudew() {
+  CLAUDE_CONFIG_DIR="$HOME/.claude-work"
   CLAUDE_CODE_USE_VERTEX={{ zsh_claude_use_vertex }} \
   CLOUD_ML_REGION={{ zsh_cloud_ml_region }} \
   ANTHROPIC_VERTEX_PROJECT_ID={{ zsh_anthropic_vertex_project_id }} \
   claude "$@"
 }
 
-claude-personal() {
+claudep() {
+  CLAUDE_CONFIG_DIR="$HOME/.claude-personal"
   env -u CLAUDE_CODE_USE_VERTEX -u CLOUD_ML_REGION -u ANTHROPIC_VERTEX_PROJECT_ID claude "$@"
 }
 
