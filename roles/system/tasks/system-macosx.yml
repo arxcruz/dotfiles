@@ -38,8 +38,10 @@
     - git-review
     - npm
     - python
+    - ripgrep
     - tmate
     - virtualenvwrapper
+    - zoxide
 
 - name: Ensure ~/.hammerspoon directory exists
   file:
