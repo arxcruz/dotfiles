@@ -1,0 +1,7 @@
+---
+# Personal-only macbook: fish instead of zsh, single plain Claude Code
+# profile (no claude-work/claude-personal split).
+machine_profile: personal
+
+claude_profile_dirs:
+  - .claude

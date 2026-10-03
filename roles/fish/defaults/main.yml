@@ -1,6 +1,10 @@
 ---
 # Defaults for fish role
 
+# Playbooks that don't load vars/hosts/*.yml (desktop.yml, run.yml,
+# server.yml) fall back to the work-style profile, keeping claudew/claudep.
+machine_profile: work
+
 # Theme configuration
 fish_bat_theme: "Coldark-Dark"
 

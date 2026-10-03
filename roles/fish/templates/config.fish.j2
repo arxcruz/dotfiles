@@ -35,6 +35,7 @@ set -gx BAT_THEME "{{ fish_bat_theme }}"
 alias {{ alias.name }}="{{ alias.value }}"
 {% endfor %}
 
+{% if machine_profile == 'work' %}
 # Claude
 function claudew
     env CLAUDE_CONFIG_DIR="$HOME/.claude-work" CLAUDE_CODE_USE_VERTEX={{ fish_claude_use_vertex }} CLOUD_ML_REGION="{{ fish_cloud_ml_region }}" ANTHROPIC_VERTEX_PROJECT_ID="{{ fish_anthropic_vertex_project_id }}" claude $argv
@@ -43,3 +44,4 @@ end
 function claudep
     env CLAUDE_CONFIG_DIR="$HOME/.claude-personal" -u CLAUDE_CODE_USE_VERTEX -u CLOUD_ML_REGION -u ANTHROPIC_VERTEX_PROJECT_ID claude $argv
 end
+{% endif %}

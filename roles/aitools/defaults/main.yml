@@ -1,0 +1,6 @@
+---
+# Playbooks that don't load vars/hosts/*.yml (desktop.yml, run.yml,
+# server.yml) fall back to the work-style split profile.
+claude_profile_dirs:
+  - .claude-work
+  - .claude-personal

@@ -3,6 +3,7 @@
   hosts: all
   vars_files:
   - "{{ lookup('first_found', ['vars/' ~ ansible_facts.distribution | lower ~ '.yml', 'vars/default.yml']) }}"
+  - "{{ lookup('first_found', ['vars/hosts/' ~ ansible_facts.hostname ~ '.yml', 'vars/hosts/default.yml']) }}"
   vars:
     is_server: false
 
@@ -14,4 +15,5 @@
     - { role: 'codegraph', tags: ['codegraph', 'aitools'] }
     - { role: 'neovim', tags: ['neovim'] }
     - { role: 'tmux', tags: ['tmux'] }
-    - { role: 'zsh', tags: ['zsh'] }
+    - { role: 'zsh', tags: ['zsh'], when: machine_profile == 'work' }
+    - { role: 'fish', tags: ['fish'], when: machine_profile == 'personal' }

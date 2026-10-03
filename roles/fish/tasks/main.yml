@@ -47,3 +47,28 @@
   when: ansible_facts.system == 'Linux'
   become: true
   tags: [privileged]
+
+- name: Ensure fish is listed in /etc/shells (Darwin)
+  lineinfile:
+    path: /etc/shells
+    line: "{{ fish_path.stdout }}"
+  become: true
+  tags: [privileged]
+  when: ansible_facts.system == 'Darwin'
+
+- name: Check current login shell (Darwin)
+  command: dscl . -read /Users/{{ ansible_facts.user_id }} UserShell
+  register: current_shell_darwin
+  changed_when: false
+  when: ansible_facts.system == 'Darwin'
+
+# chsh on macOS prompts interactively for the account password (not the
+# become/sudo password) and can't be driven non-interactively, so set the
+# shell directly via dscl as root instead.
+- name: Change default shell to fish (Darwin)
+  command: dscl . -create /Users/{{ ansible_facts.user_id }} UserShell {{ fish_path.stdout }}
+  become: true
+  tags: [privileged]
+  when:
+    - ansible_facts.system == 'Darwin'
+    - fish_path.stdout not in current_shell_darwin.stdout

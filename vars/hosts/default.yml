@@ -1,0 +1,10 @@
+---
+# Fallback machine profile: used by any host without a matching
+# vars/hosts/<hostname>.yml. Keeps today's behavior (zsh + split
+# claude-work/claude-personal Claude Code profiles) everywhere unless a
+# host explicitly opts into the personal profile.
+machine_profile: work
+
+claude_profile_dirs:
+  - .claude-work
+  - .claude-personal
